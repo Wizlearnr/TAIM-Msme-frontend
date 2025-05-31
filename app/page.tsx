@@ -1,15 +1,12 @@
 "use client";
-import { createBusinessProfile, UseBusinessProfiles } from "@/services/profile";
+import { UseBusinessProfiles } from "@/services/profile";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import CreateProfileModal from "./components/CreateProfile";
 import ProfileCard from "./components/Profile";
 import { BusinessProfile } from "@/models/business-profile";
 import NavBar from "@/components/NavBar";
 import { useRouter } from "next/navigation";
-
 const SelectProfilePage = () => {
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const { data: profiles, isLoading, error } = UseBusinessProfiles();
 
   const [isSelecting, setIsSelecting] = useState(false);
@@ -35,14 +32,10 @@ const SelectProfilePage = () => {
     }
   };
 
-  const handleCreateProfile = async (formData) => {
+  const handleCreateProfile = async () => {
     try {
       setIsCreating(true);
-      await createBusinessProfile(formData);
-      alert(
-        "Profile created successfully! (Note: This is a demo - profile won't appear in selection)"
-      );
-      setIsCreateModalOpen(false);
+      router.push("/profile/create");
     } catch (err) {
       console.error("Profile creation failed:", err);
       alert("Failed to create profile. Please try again.");
@@ -51,115 +44,9 @@ const SelectProfilePage = () => {
     }
   };
 
-  const handleBackToSelect = () => {
-    setSelectedProfile(null);
-    // Clear stored data
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("business_id");
-  };
-
-  console.log("Profiles loaded:", profiles);
-
   // Main select profile screen
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      <style jsx>{`
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes modalSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(50px) scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(100px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes headerSlide {
-          from {
-            opacity: 0;
-            transform: translateY(-50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes titleFade {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
-
       <NavBar />
       <div className="container mx-auto px-4 py-12">
         {/* Title Section */}
@@ -227,12 +114,12 @@ const SelectProfilePage = () => {
                 Create New Profile
               </h3>
               <p className="text-gray-500 mb-6 text-sm">
-                Don't see your business type? Create a custom profile tailored
-                to your needs.
+                Dont see your business type? Create a custom profile tailored to
+                your needs.
               </p>
 
               <button
-                onClick={() => setIsCreateModalOpen(true)}
+                onClick={handleCreateProfile}
                 className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 Get Started
@@ -241,13 +128,6 @@ const SelectProfilePage = () => {
           </div>
         )}
       </div>
-
-      {/* Create Profile Modal */}
-      <CreateProfileModal
-        isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
-        onSubmit={handleCreateProfile}
-      />
 
       {/* Loading overlay for mutations */}
       {(isSelecting || isCreating) && (

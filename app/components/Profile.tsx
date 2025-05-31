@@ -1,17 +1,12 @@
 "use client";
 import { IconMap } from "@/constants/icons";
+import { BusinessProfile } from "@/models/business-profile";
 import { Building2, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 type Props = {
-  profile: {
-    id: number;
-    name: string;
-    category: string;
-    description: string;
-    icon: string;
-  };
-  onSelect: (profile: any) => void;
+  profile: BusinessProfile;
+  onSelect: (profile: BusinessProfile) => void;
   index: number;
 };
 
@@ -19,8 +14,6 @@ const ProfileCard = ({ profile, onSelect, index }: Props) => {
   const IconComponent = IconMap[profile.icon] || Building2;
 
   const [isHovered, setIsHovered] = useState(false);
-
-  console.log("Rendering profile card for:", profile.name);
 
   return (
     <div
@@ -55,14 +48,14 @@ const ProfileCard = ({ profile, onSelect, index }: Props) => {
 
         <div className="space-y-2">
           <h3 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
-            {profile.name}
+            {profile.companyName}
           </h3>
           <p className="text-sm text-gray-500 font-medium">
-            {profile.category}
+            {profile.sector} - {profile.subSector}
           </p>
-          <p className="text-xs text-gray-400 leading-relaxed">
-            {profile.description}
-          </p>
+          {/* <p className="text-xs text-gray-400 leading-relaxed">
+            {profile.phoneNumber}
+          </p> */}
         </div>
 
         <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 group-hover:shadow-lg transform group-hover:scale-102">

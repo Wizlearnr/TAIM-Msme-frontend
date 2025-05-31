@@ -7,7 +7,7 @@ import {
   CheckSquare,
   ArrowRight,
 } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image";
 import NavBar from "@/components/NavBar";
 
 export default function MSMEWelcomePage() {
