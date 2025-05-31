@@ -23,15 +23,5 @@ export const defaultFormData: BusinessProfile = {
   commencementDate: "",
   legalEntityType: "",
   gstNumber: "",
-  promoters: [
-    {
-      name: "",
-      age: "",
-      aadhar: "",
-      pan: "",
-      gender: "",
-      category: "",
-      sharePercentage: "",
-    },
-  ],
+  promoters: [],
 };
