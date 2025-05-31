@@ -2,7 +2,7 @@
 import { UseBusinessProfiles } from "@/services/profile";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import ProfileCard from "./components/Profile";
+import ProfileCard from "./_components/Profile";
 import { BusinessProfile } from "@/models/business-profile";
 import NavBar from "@/components/NavBar";
 import { useRouter } from "next/navigation";
