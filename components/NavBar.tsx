@@ -1,13 +1,18 @@
 "use client";
 
 import { User, Bell, X, Calendar } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 const NavBar = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+
+  useEffect(()=>{
+    const timer = setTimeout(() => setShowNotifications(true), 2000);
+    return () => clearTimeout(timer);
+  }, [])
   return (
     <header className="relative z-10 bg-white/80 backdrop-blur-lg border-b border-white/20 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="p-2 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
@@ -26,6 +31,7 @@ const NavBar = () => {
           </div>
 
           <div className="relative">
+            <div className="flex gap-[15px]">
             <button
               onClick={() => setShowNotifications(!showNotifications)}
               className="relative p-2 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
@@ -41,6 +47,7 @@ const NavBar = () => {
             >
               <User className="w-5 h-5 text-gray-600" />
             </button>
+          </div>
 
             {showNotifications && (
               <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 transform animate-in slide-in-from-top-2">

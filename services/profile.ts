@@ -11,7 +11,7 @@ const fetchBusinessProfiles = async (): Promise<BusinessProfile[]> => {
       id: 1,
       name: "Green Tech Manufacturing",
       category: "Technology",
-      description: "Sustainable technology solutions for modern manufacturing",
+      description: "Sustainable technology solutions for manufacturing",
       icon: "cpu",
       token: "",
     },

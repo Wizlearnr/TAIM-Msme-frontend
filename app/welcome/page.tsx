@@ -57,13 +57,13 @@ export default function MSMEWelcomePage() {
         {/* Hero Section */}
         <div className="text-center mb-16 transform animate-in fade-in-0 slide-in-from-bottom-4 duration-1000">
           {/* Government Logo */}
-          <Image
+          {/* <Image
             src="/images/gov.png"
             alt="Government Logo"
             width={200}
             height={200}
             className="mx-auto mb-4"
-          />
+          /> */}
 
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Welcome to the{" "}

@@ -4,6 +4,5 @@ export type BusinessProfile = {
   category: string;
   description: string;
   icon: string;
-
   token: string;
 };
