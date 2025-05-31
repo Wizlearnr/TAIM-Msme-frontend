@@ -1,9 +1,9 @@
 import React from "react";
-import { useProfileAction } from "../_context/CreateEditProfileContext";
+import { useProfileActionContext } from "../_context/CreateEditProfileContext";
 import { IndianRupee, ChevronDown } from "lucide-react";
 
 const FinancialProfile = () => {
-  const { register } = useProfileAction();
+  const { register } = useProfileActionContext();
   return (
     <div className="space-y-6 animate-in slide-in-from-right-5 duration-300">
       <div className="flex items-center space-x-3 mb-6">

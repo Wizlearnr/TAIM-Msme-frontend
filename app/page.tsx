@@ -1,53 +1,20 @@
 "use client";
-import { UseBusinessProfiles } from "@/services/profile";
 import { Plus } from "lucide-react";
-import { useState } from "react";
 import ProfileCard from "./_components/Profile";
-import { BusinessProfile } from "@/models/business-profile";
-import NavBar from "@/components/NavBar";
 import { useRouter } from "next/navigation";
+import { useProfileContext } from "./_context/ProfileContext";
 const SelectProfilePage = () => {
-  const { data: profiles, isLoading, error } = UseBusinessProfiles();
-
-  const [isSelecting, setIsSelecting] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
-
+  const { handleSelectProfile, profiles, isLoading, error } =
+    useProfileContext();
   const router = useRouter();
 
-  const handleProfileSelect = async (profile: BusinessProfile) => {
-    try {
-      setIsSelecting(true);
-      // Store JWT token and business_id in localStorage
-      localStorage.setItem("auth_token", profile.token);
-      localStorage.setItem("business_id", profile.id.toString());
-
-      router.push("/welcome"); // Navigate to welcome page
-
-      // Set selected profile and navigate to welcome
-    } catch (err) {
-      console.error("Profile selection failed:", err);
-      alert("Failed to select profile. Please try again.");
-    } finally {
-      setIsSelecting(false);
-    }
-  };
-
   const handleCreateProfile = async () => {
-    try {
-      setIsCreating(true);
-      router.push("/profile/create");
-    } catch (err) {
-      console.error("Profile creation failed:", err);
-      alert("Failed to create profile. Please try again.");
-    } finally {
-      setIsCreating(false);
-    }
+    router.push("/profile/create");
   };
 
   // Main select profile screen
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      <NavBar />
       <div className="container mx-auto px-4 py-12">
         {/* Title Section */}
         <div
@@ -92,7 +59,7 @@ const SelectProfilePage = () => {
               <ProfileCard
                 key={profile.id}
                 profile={profile}
-                onSelect={handleProfileSelect}
+                onSelect={handleSelectProfile}
                 index={index}
               />
             ))}
@@ -128,26 +95,6 @@ const SelectProfilePage = () => {
           </div>
         )}
       </div>
-
-      {/* Loading overlay for mutations */}
-      {(isSelecting || isCreating) && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50"
-          style={{ animation: "fadeIn 0.3s ease-out" }}
-        >
-          <div className="bg-white rounded-lg p-6 shadow-2xl">
-            <div className="flex items-center space-x-3">
-              <div
-                className="w-6 h-6 border-3 border-blue-600 border-t-transparent rounded-full"
-                style={{ animation: "spin 1s linear infinite" }}
-              />
-              <span className="text-gray-700 font-medium">
-                {isSelecting ? "Selecting profile..." : "Creating profile..."}
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

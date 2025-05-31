@@ -1,9 +1,9 @@
 import React from "react";
-import { useProfileAction } from "../_context/CreateEditProfileContext";
+import { useProfileActionContext } from "../_context/CreateEditProfileContext";
 import { MapPin } from "lucide-react";
 
 const LocationDetails = () => {
-  const { register, errors } = useProfileAction();
+  const { register, errors } = useProfileActionContext();
   return (
     <div className="space-y-6 animate-in slide-in-from-right-5 duration-300">
       <div className="flex items-center space-x-3 mb-6">

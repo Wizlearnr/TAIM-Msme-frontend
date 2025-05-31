@@ -1,5 +1,5 @@
 import React from "react";
-import { useProfileAction } from "../_context/CreateEditProfileContext";
+import { useProfileActionContext } from "../_context/CreateEditProfileContext";
 import {
   Building2,
   User,
@@ -13,7 +13,7 @@ import {
 
 const BasicInformation = () => {
   const { errors, register, promoters, addPromoter, removePromoter } =
-    useProfileAction();
+    useProfileActionContext();
 
   return (
     <div className="space-y-8 animate-in slide-in-from-right-5 duration-300">

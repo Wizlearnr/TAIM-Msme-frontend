@@ -1,5 +1,5 @@
 import { BusinessProfile } from "@/models/business-profile";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 // Mock API functions (replace with actual axios/react-query implementation)
 const fetchBusinessProfiles = async (): Promise<BusinessProfile[]> => {
@@ -168,7 +168,7 @@ const fetchBusinessProfiles = async (): Promise<BusinessProfile[]> => {
   ];
 };
 
-export const UseBusinessProfiles = () => {
+export const useBusinessProfiles = () => {
   const query = useQuery({
     queryKey: ["businessProfiles"],
     queryFn: fetchBusinessProfiles,
@@ -177,15 +177,9 @@ export const UseBusinessProfiles = () => {
   return query;
 };
 
-export const createBusinessProfile = async (profileData: any) => {
+export const createBusinessProfile = async (profileData: BusinessProfile) => {
   // Simulate API delay
   await new Promise((resolve) => setTimeout(resolve, 1200));
 
-  return {
-    data: {
-      id: Date.now(),
-      ...profileData,
-      message: "Profile created successfully",
-    },
-  };
+  return profileData;
 };

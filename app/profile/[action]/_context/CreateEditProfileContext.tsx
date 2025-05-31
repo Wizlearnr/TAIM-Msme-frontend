@@ -9,6 +9,9 @@ import {
 } from "react-hook-form";
 import { useParams } from "next/navigation";
 import { defaultFormData } from "../_constant";
+import { createBusinessProfile } from "@/services/profile";
+import { useMutation } from "@tanstack/react-query";
+import { useProfileContext } from "@/app/_context/ProfileContext";
 
 interface ContextType {
   errors: FieldErrors<BusinessProfile>;
@@ -17,6 +20,9 @@ interface ContextType {
   promoters: Promoter[];
   addPromoter: () => void;
   removePromoter: (index: number) => void;
+
+  isPending?: boolean;
+  networkError?: Error | null;
 }
 
 const ProfileActionContext = createContext<ContextType | undefined>(undefined);
@@ -26,6 +32,18 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const params = useParams();
   const actionParam = params?.action as "create" | "edit";
+
+  const { handleSelectProfile } = useProfileContext();
+
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: createBusinessProfile,
+    onSuccess: (data) => {
+      handleSelectProfile(data);
+    },
+    onError: (error) => {
+      console.error("Error creating profile:", error);
+    },
+  });
 
   const initialData = useMemo(() => {
     if (actionParam === "edit") {
@@ -65,7 +83,17 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const onSubmit = handleSubmit((data: BusinessProfile) => {
-    console.log("Form submitted:", data);
+    console.log("Form submitted with data:", data);
+    // Here you can handle the form submission, e.g., send data to an API
+    // For now, we just log the data to the console
+    if (actionParam === "create") {
+      mutate(data);
+    }
+
+    if (actionParam === "edit") {
+      // Handle edit logic here
+      console.log("Editing profile with data:", data);
+    }
   });
 
   const value: ContextType = {
@@ -75,6 +103,8 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
     promoters: fields,
     addPromoter,
     removePromoter,
+    isPending,
+    networkError: error,
   };
 
   return (
@@ -84,7 +114,7 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-export const useProfileAction = () => {
+export const useProfileActionContext = () => {
   const context = useContext(ProfileActionContext);
   if (context === undefined) {
     throw new Error(

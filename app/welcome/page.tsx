@@ -8,7 +8,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 // import Image from "next/image";
-import NavBar from "@/components/NavBar";
 
 export default function MSMEWelcomePage() {
   const [animateCards, setAnimateCards] = useState(false);
@@ -50,7 +49,6 @@ export default function MSMEWelcomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
       {/* Header */}
-      <NavBar />
 
       {/* Main Content */}
       <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
