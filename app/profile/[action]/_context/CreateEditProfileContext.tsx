@@ -33,7 +33,7 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
   const params = useParams();
   const actionParam = params?.action as "create" | "edit";
 
-  const { handleSelectProfile } = useProfileContext();
+  const { handleSelectProfile, selectedProfile } = useProfileContext();
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: createBusinessProfile,
@@ -47,10 +47,10 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
 
   const initialData = useMemo(() => {
     if (actionParam === "edit") {
-      return defaultFormData;
+      return selectedProfile!;
     }
     return defaultFormData;
-  }, [actionParam]);
+  }, [actionParam, selectedProfile]);
 
   const {
     register,
