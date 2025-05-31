@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, ReactNode } from "react";
+import React, { createContext, useContext, ReactNode, useMemo } from "react";
 import { Promoter, BusinessProfile } from "@/models/business-profile";
 import {
   useForm,
@@ -7,6 +7,8 @@ import {
   FieldErrors,
   UseFormRegister,
 } from "react-hook-form";
+import { useParams } from "next/navigation";
+import { defaultFormData } from "../_constant";
 
 interface ContextType {
   errors: FieldErrors<BusinessProfile>;
@@ -17,54 +19,28 @@ interface ContextType {
   removePromoter: (index: number) => void;
 }
 
-const defaultFormData: BusinessProfile = {
-  id: 0,
-  token: "",
-  icon: "",
-  companyName: "",
-  contactPerson: "",
-  email: "",
-  phoneNumber: "",
-  sector: "",
-  subSector: "",
-  enterpriseType: "",
-  address: "",
-  city: "",
-  pincode: "",
-  assetsOwned: "",
-  annualTurnover: "",
-  bankLoanStatus: "",
-  employeeCount: "",
-  womenEmployees: "",
-  yearsOfOperation: "",
-  commencementDate: "",
-  legalEntityType: "",
-  gstNumber: "",
-  promoters: [
-    {
-      name: "",
-      age: "",
-      aadhar: "",
-      pan: "",
-      gender: "",
-      category: "",
-      sharePercentage: "",
-    },
-  ],
-};
-
 const ProfileActionContext = createContext<ContextType | undefined>(undefined);
 
 export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const params = useParams();
+  const actionParam = params?.action as "create" | "edit";
+
+  const initialData = useMemo(() => {
+    if (actionParam === "edit") {
+      return defaultFormData;
+    }
+    return defaultFormData;
+  }, [actionParam]);
+
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<BusinessProfile>({
-    defaultValues: defaultFormData,
+    defaultValues: initialData,
   });
 
   const { fields, append, remove } = useFieldArray({

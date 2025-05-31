@@ -1,0 +1,37 @@
+import { BusinessProfile } from "@/models/business-profile";
+
+export const defaultFormData: BusinessProfile = {
+  id: 0,
+  token: "",
+  icon: "",
+  companyName: "",
+  contactPerson: "",
+  email: "",
+  phoneNumber: "",
+  sector: "",
+  subSector: "",
+  enterpriseType: "",
+  address: "",
+  city: "",
+  pincode: "",
+  assetsOwned: "",
+  annualTurnover: "",
+  bankLoanStatus: "",
+  employeeCount: "",
+  womenEmployees: "",
+  yearsOfOperation: "",
+  commencementDate: "",
+  legalEntityType: "",
+  gstNumber: "",
+  promoters: [
+    {
+      name: "",
+      age: "",
+      aadhar: "",
+      pan: "",
+      gender: "",
+      category: "",
+      sharePercentage: "",
+    },
+  ],
+};
