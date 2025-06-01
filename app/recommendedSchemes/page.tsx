@@ -288,8 +288,6 @@ const MSMESchemesPage = () => {
           animation: pulseButton 2s infinite;
         }
       `}</style>
-      {/* Header */}
-      <NavBar />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">

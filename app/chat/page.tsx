@@ -133,16 +133,13 @@ const MSMEChatInterface = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <NavBar />
-
       {/* Chat Container */}
       <div className="max-w-7xl mx-auto h-[calc(100vh-180px)] flex flex-col">
         {/* Messages Area */}
         <div className="flex-1 px-8 py-8 pb-32 overflow-y-auto space-y-8">
           {messages.map((message, index) => (
             <div
-              key={message.id}
+              key={`${message.id}`}
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} group`}
               style={{ 
                 animation: `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s both`

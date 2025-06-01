@@ -13,7 +13,6 @@ import {
   Heart
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import NavBar from '@/components/NavBar';
 
 const MSMEFeedbackPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -56,10 +55,6 @@ const MSMEFeedbackPage = () => {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-slate-50">
-        {/* Header */}
-       <NavBar />
-
-        {/* Success Message */}
         <div className="flex items-center justify-center min-h-[80vh] px-6">
           <div 
             className="bg-white rounded-xl border border-slate-200 p-8 max-w-md w-full text-center shadow-lg"
@@ -112,11 +107,6 @@ const MSMEFeedbackPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-        <NavBar />
-    
-        {/* Back Button */}
-
       {/* Main Content */}
       <div className="flex items-center justify-center min-h-[80vh] px-6 py-12">
         <div className="max-w-md w-full">

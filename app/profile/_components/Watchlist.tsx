@@ -1,5 +1,6 @@
 "use client";
 import { CheckCircle2, Info, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type WatchListItemProps = {
@@ -13,7 +14,11 @@ type WatchListItemProps = {
 // Watch List Item Component
 
 const WatchListItem: React.FC<WatchListItemProps> = ({ scheme, index }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const router = useRouter();
+
+  const handleMoreInfoClick = () => {
+    router.push("scheme");
+  }
 
   return (
     <div
@@ -48,22 +53,12 @@ const WatchListItem: React.FC<WatchListItemProps> = ({ scheme, index }) => {
           </div>
 
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={handleMoreInfoClick}
             className="flex items-center gap-2 px-4 py-2 border border-blue-300 text-blue-600 rounded-lg font-medium transition-all duration-300 hover:bg-blue-50 hover:border-blue-400 hover:scale-105"
           >
             <Info size={16} />
             More Info
           </button>
-
-          {isExpanded && (
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200 animate-fadeIn">
-              <p className="text-sm text-blue-800">
-                This scheme provides financial assistance and support for micro
-                enterprises. Additional details about eligibility, application
-                process, and benefits would be displayed here.
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>

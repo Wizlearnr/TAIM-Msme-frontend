@@ -20,7 +20,6 @@ import {
   BarChart3,
   Factory
 } from 'lucide-react';
-import NavBar from '@/components/NavBar';
 
 
 const TSiPASSPortal = () => {
@@ -141,9 +140,6 @@ const TSiPASSPortal = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <NavBar />
-
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Title Section */}
         <div className="text-center mb-8" style={fadeInUp}>
@@ -155,12 +151,7 @@ const TSiPASSPortal = () => {
           >
             Telangana State Industrial Policy
           </h1>
-          <div 
-            className="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
-            style={{
-              animation: mounted ? 'bounceIn 1s ease-out 0.3s both' : 'none'
-            }}
-          >
+          <div className="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer">
             <Zap className="w-4 h-4 animate-pulse" />
             <span>TS-iPASS</span>
           </div>
@@ -388,7 +379,6 @@ const TSiPASSPortal = () => {
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95"
               style={{
                 ...staggerDelay(6),
-                animation: mounted ? 'bounceIn 1s ease-out 0.6s both' : 'none'
               }}
             >
               Add to Watch List
