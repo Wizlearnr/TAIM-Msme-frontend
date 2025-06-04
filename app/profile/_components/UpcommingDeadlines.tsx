@@ -7,15 +7,7 @@ import { Calendar, Clock } from "lucide-react";
 const UpcomingDeadlines = () => {
   const { selectedProfile } = useProfileContext();
 
-  const {
-    isLoading,
-    error,
-    data: notifications = [],
-  } = useNotifications(
-    selectedProfile?.business_id ?? 0,
-    selectedProfile?.token ?? "",
-    5
-  );
+  const { isLoading, error, data: notifications = [] } = useNotifications(5);
 
   // add loader if notifications are loading
   if (isLoading) {
@@ -25,7 +17,9 @@ const UpcomingDeadlines = () => {
           <div className="p-3 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl text-white animate-pulse">
             <Calendar size={24} />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 animate-pulse">Loading...</h2>
+          <h2 className="text-2xl font-bold text-gray-800 animate-pulse">
+            Loading...
+          </h2>
         </div>
       </div>
     );
@@ -39,14 +33,14 @@ const UpcomingDeadlines = () => {
           <div className="p-3 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl text-white">
             <Calendar size={24} />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800">No Upcoming Deadlines</h2>
+          <h2 className="text-2xl font-bold text-gray-800">
+            No Upcoming Deadlines
+          </h2>
         </div>
         <p className="text-gray-600">You have no upcoming deadlines.</p>
       </div>
     );
   }
-
- 
 
   return (
     <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-xl">
