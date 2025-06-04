@@ -57,14 +57,6 @@ apiClient.interceptors.request.use(
       config.params.business_id = businessId;
     }
 
-    // Log request for debugging (remove in production)
-    console.log("API Request:", {
-      method: config.method?.toUpperCase(),
-      url: config.url,
-      params: config.params,
-      headers: config.headers,
-    });
-
     return config;
   },
   (error) => {

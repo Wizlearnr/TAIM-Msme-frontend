@@ -57,6 +57,8 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
       router.replace("/");
       return;
     }
+
+    setSelectedProfile(storedProfile);
   }, [router]);
 
   const handleSelectProfile = useCallback(
