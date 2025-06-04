@@ -1,19 +1,18 @@
 "use client";
+import { useProfileContext } from "@/app/_context/ProfileContext";
+import { WatchList } from "@/models/watchlist";
+import { useWatchLists } from "@/services/watchlist";
 import { CheckCircle2, Info, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type WatchListItemProps = {
-  scheme: {
-    title: string;
-    description: string;
-    tags: string[];
-  };
+  watchList: WatchList;
   index: number;
 };
 // Watch List Item Component
 
-const WatchListItem: React.FC<WatchListItemProps> = ({ scheme, index }) => {
+const WatchListItem: React.FC<WatchListItemProps> = ({ watchList, index }) => {
   const router = useRouter();
 
   const handleMoreInfoClick = () => {
@@ -35,13 +34,13 @@ const WatchListItem: React.FC<WatchListItemProps> = ({ scheme, index }) => {
 
         <div className="flex-1">
           <h3 className="font-bold text-gray-800 mb-2 text-lg">
-            {scheme.title}
+            {watchList.scheme_name}
           </h3>
           <p className="text-gray-600 mb-4 leading-relaxed">
-            {scheme.description}
+            {watchList.description}
           </p>
-
-          <div className="flex flex-wrap gap-2 mb-4">
+          {/* Uncomment if you want to show tags in the future */}
+          {/* <div className="flex flex-wrap gap-2 mb-4">
             {scheme.tags.map((tag, tagIndex) => (
               <span
                 key={tagIndex}
@@ -50,7 +49,7 @@ const WatchListItem: React.FC<WatchListItemProps> = ({ scheme, index }) => {
                 {tag}
               </span>
             ))}
-          </div>
+          </div> */}
 
           <button
             onClick={handleMoreInfoClick}
@@ -82,6 +81,58 @@ const WatchList = () => {
     },
   ];
 
+  const { selectedProfile } = useProfileContext();
+  const businessId = selectedProfile?.business_id || 0;
+  const token = selectedProfile?.token ?? "";
+
+  const {
+    isLoading,
+    error,
+    data: watchlists = [],
+  } = useWatchLists(businessId, token); 
+
+  if (isLoading) {
+    return (
+      <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 animate-pulse">
+        <div className="flex items-center gap-3 mb-6">
+           <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
+             <Star size={24} />
+           </div>
+          <h2 className="text-2xl font-bold text-gray-400">Loading...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white rounded-2xl p-8 shadow-lg border border-red-100">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-3 bg-red-500 rounded-xl text-white">
+            <Star size={24} />
+          </div>
+          <h2 className="text-2xl font-bold text-red-800">Error loading watch list</h2>
+        </div>
+        <p className="text-red-600">Please try again later.</p>
+      </div>
+    );
+  }
+
+  if (!watchlists.length) {
+    return (
+      <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+        <div className="flex items-center gap-3 mb-6">
+         <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
+             <Star size={24} />
+         </div>
+          <h2 className="text-2xl font-bold text-gray-800">No Schemes in Watch List</h2>
+        </div>
+        <p className="text-gray-600">You have not added any schemes to your watch list.</p>
+      </div>
+    );
+  }
+  
+
   return (
     <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-lg border border-gray-100">
       <div className="flex items-center gap-3 mb-6">
@@ -92,8 +143,8 @@ const WatchList = () => {
       </div>
 
       <div className="space-y-4">
-        {schemes.map((scheme, index) => (
-          <WatchListItem key={index} scheme={scheme} index={index} />
+        {watchlists.map((watchlist, index) => (
+          <WatchListItem key={index} watchList={watchlist} index={index} />
         ))}
       </div>
     </div>
