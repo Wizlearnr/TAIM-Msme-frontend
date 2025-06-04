@@ -41,11 +41,11 @@ apiClient.interceptors.request.use(
       return Promise.reject(new Error("No authentication token found"));
     }
     const token = selectedProfile.token;
-    const businessId = localStorage.getItem("businessId");
+    const businessId = selectedProfile.business_id;
 
     // Add token to Authorization header if it exists
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.token = token;
     }
 
     // Add business ID to query parameters if it exists
