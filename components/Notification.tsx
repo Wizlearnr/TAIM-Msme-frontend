@@ -23,9 +23,28 @@ const Notifications = (props: WatchListProps) => {
     setShowNotificationsIndicator(notifications.length > 0);
   }, [notifications, setShowNotificationsIndicator]);
 
-  // Don't render component if no notifications
-  if (!notifications.length || error || isLoading) {
-    return null;
+  if (isLoading) {
+    return (
+      <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4">
+        <p className="text-gray-600">Loading notifications...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4">
+        <p className="text-red-600">Failed to load notifications.</p>
+      </div>
+    );
+  }
+
+  if (notifications.length === 0) {
+    return (
+      <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4">
+        <p className="text-gray-600">No upcoming deadlines.</p>
+      </div>
+    );
   }
 
   return (

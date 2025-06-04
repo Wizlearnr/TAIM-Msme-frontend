@@ -25,7 +25,7 @@ const MSMEChatInterface = () => {
   };
 
   const handleFindSchemes = () => {
-    router.push("/recommendedSchemes");
+    router.push("/recommended-schemes");
   };
 
   return (
