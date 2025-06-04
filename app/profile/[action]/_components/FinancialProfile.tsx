@@ -139,6 +139,7 @@ const FinancialProfile = () => {
           </label>
           <div className="relative">
             <select
+              defaultValue=""
               {...register("bank_loan_status", {
                 required: "Bank loan status is required",
               })}
