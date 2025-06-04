@@ -1,13 +1,11 @@
 "use client";
-import { useProfileContext } from "@/app/_context/ProfileContext";
 import { calculatePriority } from "@/app/utils";
 import { useNotifications } from "@/services/notification";
 import { Calendar, Clock } from "lucide-react";
 
 const UpcomingDeadlines = () => {
-  const { selectedProfile } = useProfileContext();
 
-  const { isLoading, error, data: notifications = [] } = useNotifications(5);
+  const { isLoading, error, data: notifications = [] } = useNotifications(30);
 
   // add loader if notifications are loading
   if (isLoading) {

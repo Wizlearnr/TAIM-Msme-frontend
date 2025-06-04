@@ -3,7 +3,7 @@ import { Notification, NotificationResponse } from "@/models/notification";
 import { apiClient } from ".";
 
 const fetchNotifications = async (
-  numberOfDaysAhead: number = 5
+  numberOfDaysAhead: number
 ): Promise<Notification[]> => {
   const { data } = await apiClient.get<NotificationResponse>(`/notifications`, {
     params: {

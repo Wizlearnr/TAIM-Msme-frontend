@@ -1,10 +1,8 @@
 "use client";
-import { useProfileContext } from "@/app/_context/ProfileContext";
 import { WatchList } from "@/models/watchlist";
 import { useWatchLists } from "@/services/watchlist";
 import { CheckCircle2, Info, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 type WatchListItemProps = {
   watchList: WatchList;
@@ -81,15 +79,11 @@ const WatchList = () => {
     },
   ];
 
-  const { selectedProfile } = useProfileContext();
-  const businessId = selectedProfile?.business_id || 0;
-  const token = selectedProfile?.token ?? "";
-
   const {
     isLoading,
     error,
     data: watchlists = [],
-  } = useWatchLists(businessId, token); 
+  } = useWatchLists(); 
 
   if (isLoading) {
     return (
