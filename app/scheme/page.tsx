@@ -7,8 +7,23 @@ import DocumentsNeeded from "./_components/DocumentsNeeded";
 import ApplicationProcess from "./_components/ApplicationProcess";
 import ApplicationDeadline from "./_components/ApplicationDeadline";
 import UsefulLinks from "./_components/UsefulLinks";
+import { useMutation } from "@tanstack/react-query";
+import { addToWatchLists } from "@/services/watchlist";
 
 const TSiPASSPortal = () => {
+  const { mutate: addToWatchList } = useMutation({
+    mutationFn: async () => {
+      return addToWatchLists({
+        scheme_id: 1,
+        deadline: "2025-12-31",
+      });
+    },
+
+    onSuccess: () => {
+      alert("Added to Watch List successfully!");
+    },
+  });
+
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="max-w-7xl mx-auto px-6 py-8">
@@ -50,7 +65,10 @@ const TSiPASSPortal = () => {
             <UsefulLinks />
 
             {/* CTA Button */}
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95">
+            <button
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95"
+              onClick={() => addToWatchList()}
+            >
               Add to Watch List
             </button>
           </div>
