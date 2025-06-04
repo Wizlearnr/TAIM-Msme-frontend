@@ -54,7 +54,7 @@ apiClient.interceptors.request.use(
       if (!config.params) {
         config.params = {};
       }
-      config.params.businessId = businessId;
+      config.params.business_id = businessId;
     }
 
     // Log request for debugging (remove in production)
