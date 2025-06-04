@@ -1,5 +1,11 @@
 "use client";
-import React, { createContext, useContext, ReactNode, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useMemo,
+  useEffect,
+} from "react";
 import { Promoter, BusinessProfile } from "@/models/business-profile";
 import {
   useForm,
@@ -57,9 +63,17 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<BusinessProfile>({
     defaultValues: initialData,
   });
+
+  // Reset form when data becomes available
+  useEffect(() => {
+    if (actionParam === "edit" && selectedProfile) {
+      reset(selectedProfile);
+    }
+  }, [actionParam, selectedProfile, reset]);
 
   const { fields, append, remove } = useFieldArray({
     control,

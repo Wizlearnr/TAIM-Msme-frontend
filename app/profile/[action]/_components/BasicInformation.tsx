@@ -101,14 +101,6 @@ const BasicInformation = () => {
             <input
               {...register("phone", {
                 required: "Phone number is required",
-                maxLength: {
-                  value: 10,
-                  message: "Phone number must be 10 digits",
-                },
-                minLength: {
-                  value: 10,
-                  message: "Phone number must be 10 digits",
-                },
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
               placeholder="Enter phone number"
