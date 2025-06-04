@@ -5,10 +5,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useProfileContext } from "@/app/_context/ProfileContext";
 import { useRouter } from "next/navigation";
+import Notifications from "./Notification";
 const NavBar = () => {
   const { selectedProfile, logout } = useProfileContext();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [showNotificationsIndicator, setShowNotificationsIndicator] = useState(false);
 
   const notificationDropdownRef = React.useRef<HTMLDivElement>(null);
   const profileDropdownRef = React.useRef<HTMLDivElement>(null);
@@ -101,8 +103,12 @@ const NavBar = () => {
                   className="relative p-2 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
                   <Bell className="w-5 h-5 text-gray-600" />
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+                  {showNotificationsIndicator && (
+                    <>
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+                    </>
+                  )}
                 </button>
 
                 <button
@@ -116,42 +122,11 @@ const NavBar = () => {
             )}
 
             {showNotifications && (
-              <div
-                ref={notificationDropdownRef}
-                className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 z-500 transform animate-in slide-in-from-top-2"
-              >
-                <div className="p-4 border-b border-gray-100 flex justify-between items-center">
-                  <h3 className="font-semibold text-gray-900">
-                    Upcoming Deadlines
-                  </h3>
-                  <button
-                    onClick={() => setShowNotifications(false)}
-                    className="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600 hover:text-gray-900"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-                <div className="p-4 space-y-3">
-                  <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                    <Calendar className="w-5 h-5 text-blue-600" />
-                    <div>
-                      <p className="font-medium text-gray-900">PMEGP Scheme</p>
-                      <p className="text-sm text-gray-600">
-                        Deadline: 31 Dec 2025
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3 p-3 bg-purple-50 rounded-lg">
-                    <Calendar className="w-5 h-5 text-purple-600" />
-                    <div>
-                      <p className="font-medium text-gray-900">PMEGP Scheme</p>
-                      <p className="text-sm text-gray-600">
-                        Deadline: 31 Dec 2025
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Notifications
+                notificationDropdownRef={notificationDropdownRef}
+                setShowNotifications={setShowNotifications}
+                setShowNotificationsIndicator={setShowNotificationsIndicator}
+              />
             )}
 
             {showProfileDropdown && (
