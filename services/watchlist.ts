@@ -1,45 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import { BASEURL } from ".";
-import { WatchList } from "@/models/watchlist";
+import { WatchList, WatchListBody } from "@/models/watchlist";
+import axios from "axios";
 
+const fetchWatchLists = async (): Promise<WatchList[]> => {
+  const { data } = await axios.get<WatchList[]>("/scheme-watchlist");
 
-const fetchWatchLists = async (
-    businessId: number,
-    token: string
-): Promise<WatchList[]> => {
-
-  const url = `${BASEURL}scheme-watchlist?business_id=${businessId}`;
-
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "token": token,
-    },
-  });
-  if (!response.ok) {
-    throw new Error("Failed to fetch business profiles");
-  }
-  const data = await response.json();
-
-  return data ;
+  return data;
 };
 
-export const useWatchLists = (
-    businessId: number,
-    token: string
-) => {
+export const useWatchLists = () => {
   const query = useQuery({
-    queryKey: ["watchLists"],
-    queryFn: () => fetchWatchLists(businessId, token),
+    queryKey: ["watch-lists"],
+    queryFn: fetchWatchLists,
   });
 
   return query;
 };
 
-
-
-export const addToWatchLists = async (watchlist: WatchList) => {
-
-
+export const addToWatchLists = async (watchlist: WatchListBody) => {
+  const { data } = await axios.post<WatchList>("/scheme-watchlist", watchlist);
+  return data;
 };
