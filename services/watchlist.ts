@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { WatchList, WatchListBody } from "@/models/watchlist";
-import axios from "axios";
+import { apiClient } from ".";
 
 const fetchWatchLists = async (): Promise<WatchList[]> => {
-  const { data } = await axios.get<WatchList[]>("/scheme-watchlist");
+  const { data } = await apiClient.get<WatchList[]>("/scheme-watchlist");
 
   return data;
 };
@@ -18,6 +18,9 @@ export const useWatchLists = () => {
 };
 
 export const addToWatchLists = async (watchlist: WatchListBody) => {
-  const { data } = await axios.post<WatchList>("/scheme-watchlist", watchlist);
+  const { data } = await apiClient.post<WatchList>(
+    "/scheme-watchlist",
+    watchlist
+  );
   return data;
 };

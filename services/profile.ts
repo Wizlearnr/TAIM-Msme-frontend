@@ -7,16 +7,14 @@ const fetchBusinessProfiles = async (): Promise<BusinessProfile[]> => {
   const skip = 0;
   const limit = 4;
 
-  return apiClient
-    .get(`/business-profiles`, {
-      params: {
-        skip,
-        limit,
-      },
-    })
-    .then((response) => {
-      return response.data;
-    });
+  const { data } = await apiClient.get(`/business-profiles`, {
+    params: {
+      skip,
+      limit,
+    },
+  });
+
+  return data;
 };
 
 export const useBusinessProfiles = () => {
