@@ -11,10 +11,17 @@ import {
 import { BusinessProfile } from "@/models/business-profile";
 import { useBusinessProfiles } from "@/services/profile";
 import { useRouter } from "next/navigation";
-import { getSelectedProfileFromLS } from "@/utils/localstorage";
+import {
+  getSelectedProfileFromLS,
+  getSessionDataFromLS,
+} from "@/utils/localstorage";
+import { useMutation } from "@tanstack/react-query";
+import { createSession } from "@/services/session";
+import { Session } from "@/models/session";
 
 type ContextType = {
   selectedProfile: BusinessProfile | null;
+  session: Session | null;
 
   handleSelectProfile: (profile: BusinessProfile) => void;
 
@@ -41,8 +48,21 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
   const router = useRouter();
   const [selectedProfile, setSelectedProfile] =
     useState<BusinessProfile | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
 
   const { isLoading, error, data: profiles } = useBusinessProfiles();
+
+  const { mutate: createNewSession } = useMutation({
+    mutationFn: () => {
+      return createSession();
+    },
+    onSuccess: (data) => {
+      // Handle successful session creation if needed
+      console.log("Session created successfully:", data);
+      localStorage.setItem("session", JSON.stringify(data));
+      setSession(data);
+    },
+  });
 
   const logout = () => {
     handleSelectProfile(null);
@@ -52,19 +72,22 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     // Load the selected profile from local storage or any other source
     const storedProfile = getSelectedProfileFromLS();
+    const sessionData = getSessionDataFromLS();
 
-    if (!storedProfile) {
+    if (!storedProfile || !sessionData) {
       router.replace("/");
       return;
     }
 
     setSelectedProfile(storedProfile);
+    setSession(sessionData);
   }, [router]);
 
   const handleSelectProfile = useCallback(
     (profile: BusinessProfile | null) => {
       setSelectedProfile(profile);
       localStorage.setItem("selectedProfile", JSON.stringify(profile));
+      createNewSession();
 
       if (profile) {
         // Navigate to the dashboard or profile page
@@ -74,7 +97,7 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
         router.push("/");
       }
     },
-    [router]
+    [createNewSession, router]
   );
 
   return (
@@ -86,6 +109,7 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
         handleSelectProfile,
 
         profiles: profiles || [],
+        session,
         logout,
       }}
     >
