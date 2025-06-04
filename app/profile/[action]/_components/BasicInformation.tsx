@@ -10,8 +10,12 @@ import {
   Plus,
   Trash2,
 } from "lucide-react";
-import { ENTERPRISETYPES, LEGALENTITYTYPES, SECTOROPTIONS, SUBSECTOROPTIONS } from "../_constant";
-import SelectProfilePage from "@/app/page";
+import {
+  ENTERPRISETYPES,
+  LEGALENTITYTYPES,
+  SECTOROPTIONS,
+  SUBSECTOROPTIONS,
+} from "../_constant";
 
 const BasicInformation = () => {
   const { errors, register, promoters, addPromoter, removePromoter } =
@@ -97,15 +101,21 @@ const BasicInformation = () => {
             <input
               {...register("phone", {
                 required: "Phone number is required",
+                maxLength: {
+                  value: 10,
+                  message: "Phone number must be 10 digits",
+                },
+                minLength: {
+                  value: 10,
+                  message: "Phone number must be 10 digits",
+                },
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
               placeholder="Enter phone number"
             />
           </div>
           {errors.phone && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.phone.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
           )}
         </div>
 
@@ -116,6 +126,10 @@ const BasicInformation = () => {
           <input
             {...register("years_operation", {
               required: "Years of operation is required",
+              min: {
+                value: 0,
+                message: "Years of operation cannot be negative",
+              },
             })}
             type="number"
             className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
@@ -160,14 +174,15 @@ const BasicInformation = () => {
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
-              <option value="" disabled> Select legal entity type</option>
-             {
-              LEGALENTITYTYPES.map((type) => (
+              <option value="" disabled>
+                {" "}
+                Select legal entity type
+              </option>
+              {LEGALENTITYTYPES.map((type) => (
                 <option key={type} value={type}>
                   {type}
                 </option>
-              ))
-             }
+              ))}
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
           </div>
@@ -204,17 +219,22 @@ const BasicInformation = () => {
           </label>
           <div className="relative">
             <select
-              {...register("sector")}
+              {...register("sector", {
+                required: "Sector is required",
+              })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
               {SECTOROPTIONS.map((sector) => (
-              <option key={sector} value={sector}>
-                {sector}
-              </option>
-            ))}
+                <option key={sector} value={sector}>
+                  {sector}
+                </option>
+              ))}
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
           </div>
+          {errors.sector && (
+            <p className="text-red-500 text-sm mt-1">{errors.sector.message}</p>
+          )}
         </div>
 
         <div className="group">
@@ -222,18 +242,25 @@ const BasicInformation = () => {
             Sub Sector
           </label>
           <div className="relative">
-          <select 
-          {...register("sub_sector")} 
-          className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
-          >
-            {SUBSECTOROPTIONS.map((sector) => (
-              <option key={sector} value={sector}>
-                {sector}
-              </option>
-            ))}
-          </select>
+            <select
+              {...register("sub_sector", {
+                required: "Sub sector is required",
+              })}
+              className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
+            >
+              {SUBSECTOROPTIONS.map((sector) => (
+                <option key={sector} value={sector}>
+                  {sector}
+                </option>
+              ))}
+            </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
           </div>
+          {errors.sub_sector && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.sub_sector.message}
+            </p>
+          )}
         </div>
 
         <div className="group">
@@ -242,19 +269,24 @@ const BasicInformation = () => {
           </label>
           <div className="relative">
             <select
-              {...register("enterprise_type")}
+              {...register("enterprise_type", {
+                required: "Type of enterprise is required",
+              })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
-              {
-                ENTERPRISETYPES.map((type) => (
+              {ENTERPRISETYPES.map((type) => (
                 <option key={type} value={type}>
                   {type}
                 </option>
-              ))
-              }
+              ))}
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
           </div>
+          {errors.enterprise_type && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.enterprise_type.message}
+            </p>
+          )}
         </div>
       </div>
 
@@ -309,6 +341,12 @@ const BasicInformation = () => {
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       placeholder="Enter name"
                     />
+
+                    {errors.promoters?.[index]?.name && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.promoters[index].name.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -323,6 +361,11 @@ const BasicInformation = () => {
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       placeholder="Enter age"
                     />
+                    {errors.promoters?.[index]?.age && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.promoters[index].age.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -336,6 +379,11 @@ const BasicInformation = () => {
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       placeholder="Enter Aadhar number"
                     />
+                    {errors.promoters?.[index]?.aadhar && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.promoters[index].aadhar.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -349,6 +397,11 @@ const BasicInformation = () => {
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       placeholder="Enter PAN number"
                     />
+                    {errors.promoters?.[index]?.pan && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.promoters[index].pan.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -361,11 +414,18 @@ const BasicInformation = () => {
                       })}
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     >
-                      <option value="">Select gender</option>
+                      <option value="" disabled>
+                        Select gender
+                      </option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
-                      <option value="Other">Other</option>
+                      <option value="Others">Others</option>
                     </select>
+                    {errors.promoters?.[index]?.gender && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.promoters[index]?.gender.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -378,12 +438,20 @@ const BasicInformation = () => {
                       })}
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     >
-                      <option value="">Select category</option>
+                      <option value="" disabled>
+                        Select category
+                      </option>
                       <option value="General">General</option>
                       <option value="SC">SC</option>
                       <option value="ST">ST</option>
                       <option value="OBC">OBC</option>
                     </select>
+
+                    {errors.promoters?.[index]?.category && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.promoters[index].category.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -400,6 +468,11 @@ const BasicInformation = () => {
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       placeholder="Enter share %"
                     />
+                    {errors.promoters?.[index]?.sharePercentage && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.promoters[index].sharePercentage.message}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

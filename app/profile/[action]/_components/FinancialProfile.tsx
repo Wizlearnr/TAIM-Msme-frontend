@@ -11,7 +11,7 @@ const FinancialProfile = () => {
         <h2 className="text-2xl font-bold text-gray-900">Financial Profile</h2>
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="group">
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Assets Owned
@@ -36,13 +36,55 @@ const FinancialProfile = () => {
 
         <div className="group">
           <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Total Liabilities
+          </label>
+          <input
+            {...register("total_liabilities")}
+            className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
+            placeholder="Enter total liabilities"
+            type="number"
+            min={0}
+          />
+        </div>
+
+        <div className="group">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Total Revenue
+          </label>
+          <input
+            {...register("total_revenue")}
+            className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
+            placeholder="Enter total revenue"
+            type="number"
+            min={0}
+          />
+        </div>
+
+        <div className="group">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Investment Amount
+          </label>
+          <input
+            {...register("investment_amount")}
+            className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
+            placeholder="Enter investment amount"
+            type="number"
+            min={0}
+          />
+        </div>
+
+        <div className="group">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
             Bank Loan Status
           </label>
           <div className="relative">
             <select
-              {...register("bankLoanStatus")}
+              {...register("bank_loan_status")}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
+              <option value="" disabled>
+                Select loan status
+              </option>
               <option value="Applied for loan">Applied for loan</option>
               <option value="Loan approved">Loan approved</option>
               <option value="Loan rejected">Loan rejected</option>

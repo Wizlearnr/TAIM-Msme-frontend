@@ -14,18 +14,22 @@ export const defaultFormData: BusinessProfile = {
   address: "",
   city: "",
   pincode: "",
-  total_assets: "",
-  annual_turnover: "",
-  bankLoanStatus: "",
-  total_employees: "",
-  women_employees: "",
-  years_operation: "",
+  total_assets: 0,
+  annual_turnover: 0,
+  bank_loan_status: "",
+  total_employees: 0,
+  women_employees: 0,
+  years_operation: 0,
   registration_date: "",
   legal_entity_type: "",
   gst_number: "",
   promoters: [],
+  investment_amount: 0,
+  state: "",
+  total_liabilities: 0,
+  total_revenue: 0,
+  udyam_registration_number: "",
 };
-
 
 export const SECTOROPTIONS = [
   "Agriculture & Allied Activities",
@@ -42,7 +46,7 @@ export const SECTOROPTIONS = [
   "Energy & Utilities",
   "Tourism & Hospitality",
   "Arts, Entertainment & Recreation",
-  "Other Services"
+  "Other Services",
 ];
 
 export const SUBSECTOROPTIONS = [
@@ -62,7 +66,7 @@ export const SUBSECTOROPTIONS = [
   "Hotels, Restaurants & Catering",
   "Personal & Community Services",
   "Others",
-]
+];
 
 export const ENTERPRISETYPES = [
   "Micro Enterprise",
@@ -73,7 +77,7 @@ export const ENTERPRISETYPES = [
   "Government Business Enterprise (GBE)",
   "Public Sector Undertaking (PSU)",
   "Non-Profit Organization",
-  "Others"
+  "Others",
 ];
 
 export const LEGALENTITYTYPES = [
@@ -86,5 +90,5 @@ export const LEGALENTITYTYPES = [
   "Trust",
   "Cooperative Society",
   "Joint Venture",
-  "Others"
+  "Others",
 ];

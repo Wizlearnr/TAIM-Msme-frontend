@@ -31,7 +31,7 @@ const LocationDetails = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="group">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               City
@@ -43,6 +43,22 @@ const LocationDetails = () => {
             />
             {errors.city && (
               <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
+            )}
+          </div>
+
+          <div className="group">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              State
+            </label>
+            <input
+              {...register("state", { required: "State is required" })}
+              className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
+              placeholder="Enter state"
+            />
+            {errors.state && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.state.message}
+              </p>
             )}
           </div>
 
