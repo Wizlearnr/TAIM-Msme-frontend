@@ -439,6 +439,7 @@ const BasicInformation = () => {
                       Gender
                     </label>
                     <select
+                      defaultValue=""
                       {...register(`promoters.${index}.gender`, {
                         required: "Gender is required",
                       })}
@@ -463,6 +464,7 @@ const BasicInformation = () => {
                       Category
                     </label>
                     <select
+                      defaultValue=""
                       {...register(`promoters.${index}.category`, {
                         required: "Category is required",
                       })}
