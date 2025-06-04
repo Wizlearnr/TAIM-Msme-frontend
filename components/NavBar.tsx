@@ -1,6 +1,6 @@
 "use client";
 
-import { User, Bell, X, Calendar } from "lucide-react";
+import { User, Bell } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useProfileContext } from "@/app/_context/ProfileContext";
@@ -10,7 +10,8 @@ const NavBar = () => {
   const { selectedProfile, logout } = useProfileContext();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const [showNotificationsIndicator, setShowNotificationsIndicator] = useState(false);
+  const [showNotificationsIndicator, setShowNotificationsIndicator] =
+    useState(false);
 
   const notificationDropdownRef = React.useRef<HTMLDivElement>(null);
   const profileDropdownRef = React.useRef<HTMLDivElement>(null);

@@ -1,7 +1,5 @@
 "use client";
 
-import { useProfileContext } from "@/app/_context/ProfileContext";
-import { BusinessProfile } from "@/models/business-profile";
 import { useNotifications } from "@/services/notification";
 import { X, Calendar } from "lucide-react";
 import React, { useEffect } from "react";
@@ -18,9 +16,7 @@ const Notifications = (props: WatchListProps) => {
     setShowNotifications,
     setShowNotificationsIndicator,
   } = props;
-  const { selectedProfile } = useProfileContext();
-  const businessId = selectedProfile?.business_id || 0;
-  const token = selectedProfile?.token ?? "";
+
   const { isLoading, error, data: notifications = [] } = useNotifications(5); // fetch notifications for the next 5 days
 
   useEffect(() => {
