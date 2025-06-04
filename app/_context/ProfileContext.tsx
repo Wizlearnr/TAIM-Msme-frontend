@@ -11,6 +11,7 @@ import {
 import { BusinessProfile } from "@/models/business-profile";
 import { useBusinessProfiles } from "@/services/profile";
 import { useRouter } from "next/navigation";
+import { getSelectedProfileFromLS } from "@/utils/localstorage";
 
 type ContextType = {
   selectedProfile: BusinessProfile | null;
@@ -50,13 +51,12 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     // Load the selected profile from local storage or any other source
-    const storedProfile = localStorage.getItem("selectedProfile");
+    const storedProfile = getSelectedProfileFromLS();
+
     if (!storedProfile) {
       router.replace("/");
       return;
     }
-
-    setSelectedProfile(JSON.parse(storedProfile));
   }, [router]);
 
   const handleSelectProfile = useCallback(

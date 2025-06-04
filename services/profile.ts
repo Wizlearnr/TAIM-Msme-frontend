@@ -1,27 +1,22 @@
 import { BusinessProfile } from "@/models/business-profile";
 import { useQuery } from "@tanstack/react-query";
-import { BASEURL } from ".";
+import { apiClient } from ".";
 
 // Mock API functions (replace with actual axios/react-query implementation)
 const fetchBusinessProfiles = async (): Promise<BusinessProfile[]> => {
-
   const skip = 0;
-  const limit = 10;
+  const limit = 4;
 
-  const url = `${BASEURL}business-profiles?skip=${skip}&limit=${limit}`;
-
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (!response.ok) {
-    throw new Error("Failed to fetch business profiles");
-  }
-  const data = await response.json();
-
-  return data ;
+  return apiClient
+    .get(`/business-profiles`, {
+      params: {
+        skip,
+        limit,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 };
 
 export const useBusinessProfiles = () => {
