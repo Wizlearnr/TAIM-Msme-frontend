@@ -195,18 +195,36 @@ const BasicInformation = () => {
 
         <div className="group">
           <label className="block text-sm font-semibold text-gray-700 mb-2">
-            GST Number / UDYAM No.
+            GST Number.
           </label>
           <input
             {...register("gst_number", {
-              required: "GST/UDYAM number is required",
+              required: "GST number is required",
             })}
             className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
-            placeholder="Enter GST or UDYAM number"
+            placeholder="Enter GST number"
           />
           {errors.gst_number && (
             <p className="text-red-500 text-sm mt-1">
               {errors.gst_number.message}
+            </p>
+          )}
+        </div>
+
+        <div className="group">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            UDYAM No.
+          </label>
+          <input
+            {...register("udyam_registration_number", {
+              required: "UDYAM number is required",
+            })}
+            className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
+            placeholder="Enter GST or UDYAM number"
+          />
+          {errors.udyam_registration_number && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.udyam_registration_number.message}
             </p>
           )}
         </div>
