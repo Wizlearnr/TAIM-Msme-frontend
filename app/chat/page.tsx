@@ -17,7 +17,9 @@ const MSMEChatInterface = () => {
   const { isTyping, sendMessage, handleFeedback } = useChat(messages, setMessages);
 
   useEffect(() => {
-    scrollToBottom();
+    if(messages.length > 1) {
+      scrollToBottom();
+    }
   }, [messages]);
 
   const scrollToBottom = () => {
