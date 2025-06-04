@@ -1,5 +1,5 @@
 // axiosConfig.js
-import { getSelectedProfileFromLS } from "@/utils/localstorage";
+import { getSelectedProfileFromLS, getSessionDataFromLS } from "@/utils/localstorage";
 import axios from "axios";
 
 const PUBLIC_ENDPOINTS = [
@@ -35,26 +35,34 @@ apiClient.interceptors.request.use(
 
     // Get token and business ID from localStorage
     const selectedProfile = getSelectedProfileFromLS();
-    if (!selectedProfile) {
-      console.error("No selected profile found in localStorage.");
+    const session = getSessionDataFromLS();
+    if (!selectedProfile || !session?.session_id) {
+      console.error("No selected profile or session found in localStorage.");
       window.location.href = "/";
       return Promise.reject(new Error("No authentication token found"));
     }
     const token = selectedProfile.token;
     const businessId = selectedProfile.business_id;
+    const sessionId = session.session_id;
+    
 
     // Add token to Authorization header if it exists
     if (token) {
       config.headers.token = token;
     }
 
+     // Initialize params if it doesn't exist
+     if (!config.params) {
+      config.params = {};
+    }
+
     // Add business ID to query parameters if it exists
     if (businessId) {
-      // Initialize params if it doesn't exist
-      if (!config.params) {
-        config.params = {};
-      }
       config.params.business_id = businessId;
+    }
+
+    if(sessionId) {
+      config.params.session_id = sessionId;
     }
 
     return config;
