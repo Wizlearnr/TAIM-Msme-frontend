@@ -48,10 +48,10 @@ const ProfileCard = ({ profile, onSelect, index }: Props) => {
 
         <div className="space-y-2">
           <h3 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
-            {profile.companyName}
+            {profile.business_name}
           </h3>
           <p className="text-sm text-gray-500 font-medium">
-            {profile.sector} - {profile.subSector}
+            {profile.sector} - {profile.sub_sector}
           </p>
           {/* <p className="text-xs text-gray-400 leading-relaxed">
             {profile.phoneNumber}

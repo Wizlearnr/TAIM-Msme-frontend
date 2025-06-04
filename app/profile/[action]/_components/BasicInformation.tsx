@@ -10,6 +10,8 @@ import {
   Plus,
   Trash2,
 } from "lucide-react";
+import { ENTERPRISETYPES, LEGALENTITYTYPES, SECTOROPTIONS, SUBSECTOROPTIONS } from "../_constant";
+import SelectProfilePage from "@/app/page";
 
 const BasicInformation = () => {
   const { errors, register, promoters, addPromoter, removePromoter } =
@@ -28,15 +30,15 @@ const BasicInformation = () => {
             Company Name
           </label>
           <input
-            {...register("companyName", {
+            {...register("business_name", {
               required: "Company name is required",
             })}
             className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 bg-white text-gray-900 placeholder-gray-500"
             placeholder="Enter company name"
           />
-          {errors.companyName && (
+          {errors.business_name && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.companyName.message}
+              {errors.business_name.message}
             </p>
           )}
         </div>
@@ -48,16 +50,16 @@ const BasicInformation = () => {
           <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
-              {...register("contactPerson", {
+              {...register("contact_person", {
                 required: "Contact person is required",
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
               placeholder="Enter contact person name"
             />
           </div>
-          {errors.contactPerson && (
+          {errors.contact_person && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.contactPerson.message}
+              {errors.contact_person.message}
             </p>
           )}
         </div>
@@ -93,16 +95,16 @@ const BasicInformation = () => {
           <div className="relative">
             <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
-              {...register("phoneNumber", {
+              {...register("phone", {
                 required: "Phone number is required",
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
               placeholder="Enter phone number"
             />
           </div>
-          {errors.phoneNumber && (
+          {errors.phone && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.phoneNumber.message}
+              {errors.phone.message}
             </p>
           )}
         </div>
@@ -112,16 +114,16 @@ const BasicInformation = () => {
             Years of Operation
           </label>
           <input
-            {...register("yearsOfOperation", {
+            {...register("years_operation", {
               required: "Years of operation is required",
             })}
             type="number"
             className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
             placeholder="Enter years of operation"
           />
-          {errors.yearsOfOperation && (
+          {errors.years_operation && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.yearsOfOperation.message}
+              {errors.years_operation.message}
             </p>
           )}
         </div>
@@ -133,16 +135,16 @@ const BasicInformation = () => {
           <div className="relative">
             <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
-              {...register("commencementDate", {
+              {...register("registration_date", {
                 required: "Commencement date is required",
               })}
               type="date"
               className="bg-white text-gray-900 placeholder-gray-500 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
             />
           </div>
-          {errors.commencementDate && (
+          {errors.registration_date && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.commencementDate.message}
+              {errors.registration_date.message}
             </p>
           )}
         </div>
@@ -153,23 +155,25 @@ const BasicInformation = () => {
           </label>
           <div className="relative">
             <select
-              {...register("legalEntityType", {
+              {...register("legal_entity_type", {
                 required: "Legal entity type is required",
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
-              <option value="">Select legal entity type</option>
-              <option value="sole-proprietor">Sole Proprietorship</option>
-              <option value="partnership">Partnership</option>
-              <option value="pvt-ltd">Private Limited</option>
-              <option value="ltd">Limited Company</option>
-              <option value="llp">Limited Liability Partnership</option>
+              <option value="" disabled> Select legal entity type</option>
+             {
+              LEGALENTITYTYPES.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))
+             }
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
           </div>
-          {errors.legalEntityType && (
+          {errors.legal_entity_type && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.legalEntityType.message}
+              {errors.legal_entity_type.message}
             </p>
           )}
         </div>
@@ -179,15 +183,15 @@ const BasicInformation = () => {
             GST Number / UDYAM No.
           </label>
           <input
-            {...register("gstNumber", {
+            {...register("gst_number", {
               required: "GST/UDYAM number is required",
             })}
             className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
             placeholder="Enter GST or UDYAM number"
           />
-          {errors.gstNumber && (
+          {errors.gst_number && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.gstNumber.message}
+              {errors.gst_number.message}
             </p>
           )}
         </div>
@@ -203,10 +207,11 @@ const BasicInformation = () => {
               {...register("sector")}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
-              <option value="Technology">Technology</option>
-              <option value="Manufacturing">Manufacturing</option>
-              <option value="Services">Services</option>
-              <option value="Agriculture">Agriculture</option>
+              {SECTOROPTIONS.map((sector) => (
+              <option key={sector} value={sector}>
+                {sector}
+              </option>
+            ))}
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
           </div>
@@ -217,15 +222,16 @@ const BasicInformation = () => {
             Sub Sector
           </label>
           <div className="relative">
-            <select
-              {...register("subSector")}
-              className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
-            >
-              <option value="Education">Education</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Finance">Finance</option>
-              <option value="Retail">Retail</option>
-            </select>
+          <select 
+          {...register("sub_sector")} 
+          className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
+          >
+            {SUBSECTOROPTIONS.map((sector) => (
+              <option key={sector} value={sector}>
+                {sector}
+              </option>
+            ))}
+          </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
           </div>
         </div>
@@ -236,12 +242,16 @@ const BasicInformation = () => {
           </label>
           <div className="relative">
             <select
-              {...register("enterpriseType")}
+              {...register("enterprise_type")}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
-              <option value="Micro">Micro</option>
-              <option value="Small">Small</option>
-              <option value="Medium">Medium</option>
+              {
+                ENTERPRISETYPES.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))
+              }
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
           </div>

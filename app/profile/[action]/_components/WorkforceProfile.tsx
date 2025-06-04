@@ -17,7 +17,7 @@ const WorkforceProfile = () => {
             Employee Count
           </label>
           <input
-            {...register("employeeCount")}
+            {...register("total_employees")}
             type="number"
             className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
             placeholder="Enter total employee count"
@@ -29,7 +29,7 @@ const WorkforceProfile = () => {
             Women Employees
           </label>
           <input
-            {...register("womenEmployees")}
+            {...register("women_employees")}
             type="number"
             className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
             placeholder="Enter women employee count"

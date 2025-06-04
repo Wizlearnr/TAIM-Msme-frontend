@@ -70,7 +70,7 @@ const BusinessProfile = () => {
             <div className="flex items-center gap-2">
               <TrendingUp size={16} className="text-green-600" />
               <span className="font-semibold text-gray-800">
-                {selectedProfile.annualTurnover}
+                {selectedProfile.annual_turnover}
               </span>
             </div>
           </div>
@@ -93,7 +93,7 @@ const BusinessProfile = () => {
             <div className="flex items-center gap-2">
               <Users size={16} className="text-purple-600" />
               <span className="font-semibold text-gray-800">
-                {selectedProfile.subSector}
+                {selectedProfile.sub_sector}
               </span>
             </div>
           </div>
@@ -106,7 +106,7 @@ const BusinessProfile = () => {
           <div className="flex items-center gap-2 mt-1">
             <FileText size={16} className="text-orange-600" />
             <span className="font-mono font-semibold text-gray-800 bg-gray-50 px-3 py-1 rounded-lg">
-              {selectedProfile.gstNumber}
+              {selectedProfile.gst_number}
             </span>
           </div>
         </div>

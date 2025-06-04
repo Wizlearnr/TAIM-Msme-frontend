@@ -1,0 +1,1 @@
+export const BASEURL = 'https://taim-msme-dev-269710247293.asia-south1.run.app/api/v1/';
