@@ -1,25 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
-  ArrowLeft,
   Building2,
   DollarSign,
   MapPin,
-  Users,
   FileText,
-  ExternalLink,
-  Heart,
-  MessageSquare,
   Factory,
   Briefcase,
 } from "lucide-react";
-import NavBar from "@/components/NavBar";
 import { useRouter } from "next/navigation";
 
 const MSMESchemesPage = () => {
-  const [selectedScheme, setSelectedScheme] = useState(null);
-
   const businessProfile = {
     type: "Manufacturing",
     turnover: "50 Lakhs",
@@ -482,7 +474,10 @@ const MSMESchemesPage = () => {
             <h3 className="text-lg font-semibold text-gray-900 mb-4 animate-bounce-subtle">
               Was this helpful?
             </h3>
-            <button onClick={handleFeedbackClick} className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg animate-pulse-button">
+            <button
+              onClick={handleFeedbackClick}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg animate-pulse-button"
+            >
               Give Feedback
             </button>
           </div>
