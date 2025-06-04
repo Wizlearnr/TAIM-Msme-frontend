@@ -7,23 +7,21 @@ import { X, Calendar } from "lucide-react";
 import React, { useEffect } from "react";
 
 type WatchListProps = {
-    notificationDropdownRef: React.RefObject<HTMLDivElement | null>;
-    setShowNotifications: React.Dispatch<React.SetStateAction<boolean>>;
-    setShowNotificationsIndicator: React.Dispatch<React.SetStateAction<boolean>>;
-    };
+  notificationDropdownRef: React.RefObject<HTMLDivElement | null>;
+  setShowNotifications: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowNotificationsIndicator: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-const Notifications = (
-    props: WatchListProps
-) => {
-  const { notificationDropdownRef, setShowNotifications, setShowNotificationsIndicator} = props;
+const Notifications = (props: WatchListProps) => {
+  const {
+    notificationDropdownRef,
+    setShowNotifications,
+    setShowNotificationsIndicator,
+  } = props;
   const { selectedProfile } = useProfileContext();
   const businessId = selectedProfile?.business_id || 0;
   const token = selectedProfile?.token ?? "";
-  const {
-    isLoading,
-    error,
-    data: notifications = [],
-  } = useNotifications(businessId, token, 5); // fetch notifications for the next 5 days
+  const { isLoading, error, data: notifications = [] } = useNotifications(5); // fetch notifications for the next 5 days
 
   useEffect(() => {
     setShowNotificationsIndicator(notifications.length > 0);
