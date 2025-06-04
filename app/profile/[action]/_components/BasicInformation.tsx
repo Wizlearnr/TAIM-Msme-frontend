@@ -237,11 +237,15 @@ const BasicInformation = () => {
           </label>
           <div className="relative">
             <select
+              defaultValue={""}
               {...register("sector", {
                 required: "Sector is required",
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
+              <option value="" disabled>
+                Select sector
+              </option>
               {SECTOROPTIONS.map((sector) => (
                 <option key={sector} value={sector}>
                   {sector}
@@ -261,11 +265,15 @@ const BasicInformation = () => {
           </label>
           <div className="relative">
             <select
+              defaultValue={""}
               {...register("sub_sector", {
                 required: "Sub sector is required",
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
+              <option value="" disabled>
+                Select sub sector
+              </option>
               {SUBSECTOROPTIONS.map((sector) => (
                 <option key={sector} value={sector}>
                   {sector}
@@ -287,11 +295,15 @@ const BasicInformation = () => {
           </label>
           <div className="relative">
             <select
+              defaultValue={""}
               {...register("enterprise_type", {
                 required: "Type of enterprise is required",
               })}
               className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300 appearance-none"
             >
+              <option value="" disabled>
+                Select type of enterprise
+              </option>
               {ENTERPRISETYPES.map((type) => (
                 <option key={type} value={type}>
                   {type}
