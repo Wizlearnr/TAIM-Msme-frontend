@@ -21,7 +21,7 @@ export type BusinessProfile = {
   years_operation: number;
   registration_date: string;
   legal_entity_type: string;
-  udyam_registration_number: string; // TODO: to be added in FE
+  udyam_registration_number: string;
   gst_number: string;
   enterprise_type: string;
   sector: string;
