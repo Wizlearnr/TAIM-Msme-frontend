@@ -15,7 +15,7 @@ const WatchListItem: React.FC<WatchListItemProps> = ({ watchList, index }) => {
 
   const handleMoreInfoClick = () => {
     router.push("scheme");
-  }
+  };
 
   return (
     <div
@@ -63,35 +63,31 @@ const WatchListItem: React.FC<WatchListItemProps> = ({ watchList, index }) => {
 };
 
 // Watch List Component
-const WatchList = () => {
-  const schemes = [
-    {
-      title: "PMEGP Scheme",
-      description:
-        "Prime Minister's Employment Generation Programme for new micro enterprises",
-      tags: ["Manufacturing", "Subsidy", "Center Scheme", "Dec 2025"],
-    },
-    {
-      title: "PMEGP Scheme",
-      description:
-        "Prime Minister's Employment Generation Programme for new micro enterprises",
-      tags: ["Manufacturing", "Subsidy", "Center Scheme", "Dec 2025"],
-    },
-  ];
+const Watchlist = () => {
+  // const schemes = [
+  //   {
+  //     title: "PMEGP Scheme",
+  //     description:
+  //       "Prime Minister's Employment Generation Programme for new micro enterprises",
+  //     tags: ["Manufacturing", "Subsidy", "Center Scheme", "Dec 2025"],
+  //   },
+  //   {
+  //     title: "PMEGP Scheme",
+  //     description:
+  //       "Prime Minister's Employment Generation Programme for new micro enterprises",
+  //     tags: ["Manufacturing", "Subsidy", "Center Scheme", "Dec 2025"],
+  //   },
+  // ];
 
-  const {
-    isLoading,
-    error,
-    data: watchlists = [],
-  } = useWatchLists(); 
+  const { isLoading, error, data: watchlists = [] } = useWatchLists();
 
   if (isLoading) {
     return (
       <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 animate-pulse">
         <div className="flex items-center gap-3 mb-6">
-           <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
-             <Star size={24} />
-           </div>
+          <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
+            <Star size={24} />
+          </div>
           <h2 className="text-2xl font-bold text-gray-400">Loading...</h2>
         </div>
       </div>
@@ -105,7 +101,9 @@ const WatchList = () => {
           <div className="p-3 bg-red-500 rounded-xl text-white">
             <Star size={24} />
           </div>
-          <h2 className="text-2xl font-bold text-red-800">Error loading watch list</h2>
+          <h2 className="text-2xl font-bold text-red-800">
+            Error loading watch list
+          </h2>
         </div>
         <p className="text-red-600">Please try again later.</p>
       </div>
@@ -116,16 +114,19 @@ const WatchList = () => {
     return (
       <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
         <div className="flex items-center gap-3 mb-6">
-         <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
-             <Star size={24} />
-         </div>
-          <h2 className="text-2xl font-bold text-gray-800">No Schemes in Watch List</h2>
+          <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
+            <Star size={24} />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800">
+            No Schemes in Watch List
+          </h2>
         </div>
-        <p className="text-gray-600">You have not added any schemes to your watch list.</p>
+        <p className="text-gray-600">
+          You have not added any schemes to your watch list.
+        </p>
       </div>
     );
   }
-  
 
   return (
     <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-lg border border-gray-100">
@@ -145,4 +146,4 @@ const WatchList = () => {
   );
 };
 
-export default WatchList;
+export default Watchlist;

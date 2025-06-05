@@ -7,8 +7,6 @@ import {
   CheckSquare,
   ArrowRight,
 } from "lucide-react";
-import Image from "next/image";
-import NavBar from "@/components/NavBar";
 import { useRouter } from "next/navigation";
 
 export default function MSMEWelcomePage() {
@@ -156,7 +154,10 @@ export default function MSMEWelcomePage() {
           className="text-center transform animate-in fade-in-0 slide-in-from-bottom-4 duration-1000"
           style={{ animationDelay: "800ms" }}
         >
-          <button onClick={handleStartChat} className="group relative px-12 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-semibold text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1">
+          <button
+            onClick={handleStartChat}
+            className="group relative px-12 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-semibold text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1"
+          >
             <span className="relative z-10 flex items-center space-x-2">
               <span>Start Chat</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />

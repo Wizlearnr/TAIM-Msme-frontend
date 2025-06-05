@@ -3,7 +3,7 @@
 import React from "react";
 import BusinessProfile from "./_components/BusinessProfile";
 import UpcomingDeadlines from "./_components/UpcommingDeadlines";
-import WatchList from "./_components/Watchlist";
+import Watchlist from "./_components/Watchlist";
 
 const page = () => {
   return (
@@ -24,7 +24,7 @@ const page = () => {
 
         {/* Watch List Section */}
         <div className="mb-8">
-          <WatchList />
+          <Watchlist />
         </div>
 
         {/* Footer */}

@@ -4,8 +4,7 @@ import { useNotifications } from "@/services/notification";
 import { Calendar, Clock } from "lucide-react";
 
 const UpcomingDeadlines = () => {
-
-  const { isLoading, error, data: notifications = [] } = useNotifications(30);
+  const { isLoading, data: notifications = [] } = useNotifications(30);
 
   // add loader if notifications are loading
   if (isLoading) {

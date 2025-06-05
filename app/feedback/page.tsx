@@ -2,12 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  User,
   ThumbsUp,
   ThumbsDown,
   MessageSquare,
-  ArrowLeft,
-  Factory,
   CheckCircle,
   Send,
   Heart,
@@ -49,7 +46,7 @@ const MSMEFeedbackPage = () => {
     if (!feedback || feedback.rating === undefined) {
       return;
     }
-    await postFeedback(feedback)
+    await postFeedback(feedback);
     setIsSubmitted(true);
   };
 
