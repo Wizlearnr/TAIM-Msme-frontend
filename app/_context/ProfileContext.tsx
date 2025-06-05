@@ -7,6 +7,8 @@ import {
   useState,
   useEffect,
   useCallback,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import { BusinessProfile } from "@/models/business-profile";
 import { useBusinessProfiles } from "@/services/profile";
@@ -18,6 +20,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { createSession } from "@/services/session";
 import { Session } from "@/models/session";
+import { Message } from "@/models/message";
 
 type ContextType = {
   selectedProfile: BusinessProfile | null;
@@ -29,6 +32,8 @@ type ContextType = {
   error: Error | null;
 
   profiles: BusinessProfile[];
+  messages: Message[];
+  setMessages:  Dispatch<SetStateAction<Message[]>>
   logout: () => void;
 };
 
@@ -49,6 +54,13 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedProfile, setSelectedProfile] =
     useState<BusinessProfile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      query: "",
+      answer: "Hi there! How can I assist you today?",
+      status: "neutral",
+    }
+  ]);
 
   const { isLoading, error, data: profiles } = useBusinessProfiles();
 
@@ -66,6 +78,7 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
 
   const logout = () => {
     handleSelectProfile(null);
+    setMessages([]);
     router.refresh();
   };
 
@@ -109,6 +122,8 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
         handleSelectProfile,
 
         profiles: profiles || [],
+        messages: messages || [],
+        setMessages,
         session,
         logout,
       }}
