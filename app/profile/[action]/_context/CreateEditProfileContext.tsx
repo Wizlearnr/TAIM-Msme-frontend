@@ -13,10 +13,13 @@ import {
   FieldErrors,
   UseFormRegister,
 } from "react-hook-form";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { defaultFormData } from "../_constant";
-import { createBusinessProfile } from "@/services/profile";
-import { useMutation } from "@tanstack/react-query";
+import {
+  createBusinessProfile,
+  updateBusinessProfile,
+} from "@/services/profile";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useProfileContext } from "@/app/_context/ProfileContext";
 
 interface ContextType {
@@ -38,12 +41,33 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const params = useParams();
   const actionParam = params?.action as "create" | "edit";
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-  const { handleSelectProfile, selectedProfile } = useProfileContext();
+  const { handleSelectProfile, selectedProfile, updateProfileData } =
+    useProfileContext();
 
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: createBusinessProfile,
+  const { mutate, isPending, error } = useMutation<
+    BusinessProfile,
+    Error,
+    BusinessProfile
+  >({
+    mutationFn: (data) => {
+      console.log("Mutation function called with data:", data);
+      if (actionParam === "edit") {
+        return updateBusinessProfile(data);
+      }
+      console.log("Creating profile with data:", data);
+      return createBusinessProfile(data);
+    },
     onSuccess: (data) => {
+      if (actionParam === "edit") {
+        queryClient.invalidateQueries({ queryKey: ["businessProfiles"] });
+        updateProfileData(data);
+        router.back();
+        return;
+      }
+
       handleSelectProfile(data);
     },
     onError: (error) => {
@@ -84,11 +108,11 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
     append({
       name: "",
       age: "",
-      aadhar: "",
+      aadhar_card: "",
       pan: "",
       gender: "",
       category: "",
-      sharePercentage: "",
+      share_percent: "",
     });
   };
 
@@ -96,19 +120,7 @@ export const ProfileActionProvider: React.FC<{ children: ReactNode }> = ({
     remove(index);
   };
 
-  const onSubmit = handleSubmit((data: BusinessProfile) => {
-    console.log("Form submitted with data:", data);
-    // Here you can handle the form submission, e.g., send data to an API
-    // For now, we just log the data to the console
-    if (actionParam === "create") {
-      mutate(data);
-    }
-
-    if (actionParam === "edit") {
-      // Handle edit logic here
-      console.log("Editing profile with data:", data);
-    }
-  });
+  const onSubmit = handleSubmit((d) => mutate(d));
 
   const value: ContextType = {
     errors,

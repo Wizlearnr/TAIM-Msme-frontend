@@ -122,8 +122,9 @@ const BasicInformation = () => {
                 value: 0,
                 message: "Years of operation cannot be negative",
               },
+              valueAsNumber: true,
             })}
-            type="number"
+            // type="number"
             className="bg-white text-gray-900 placeholder-gray-500 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 group-hover:border-indigo-300"
             placeholder="Enter years of operation"
           />
@@ -395,15 +396,15 @@ const BasicInformation = () => {
                       Aadhar
                     </label>
                     <input
-                      {...register(`promoters.${index}.aadhar`, {
+                      {...register(`promoters.${index}.aadhar_card`, {
                         required: "Aadhar is required",
                       })}
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       placeholder="Enter Aadhar number"
                     />
-                    {errors.promoters?.[index]?.aadhar && (
+                    {errors.promoters?.[index]?.aadhar_card && (
                       <p className="text-red-500 text-sm mt-1">
-                        {errors.promoters[index].aadhar.message}
+                        {errors.promoters[index].aadhar_card.message}
                       </p>
                     )}
                   </div>
@@ -483,7 +484,7 @@ const BasicInformation = () => {
                       Share %
                     </label>
                     <input
-                      {...register(`promoters.${index}.sharePercentage`, {
+                      {...register(`promoters.${index}.share_percent`, {
                         required: "Share percentage is required",
                       })}
                       type="number"
@@ -492,9 +493,9 @@ const BasicInformation = () => {
                       className="bg-white text-gray-900 placeholder-gray-500 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       placeholder="Enter share %"
                     />
-                    {errors.promoters?.[index]?.sharePercentage && (
+                    {errors.promoters?.[index]?.share_percent && (
                       <p className="text-red-500 text-sm mt-1">
-                        {errors.promoters[index].sharePercentage.message}
+                        {errors.promoters[index].share_percent.message}
                       </p>
                     )}
                   </div>

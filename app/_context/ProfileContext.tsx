@@ -33,7 +33,8 @@ type ContextType = {
 
   profiles: BusinessProfile[];
   messages: Message[];
-  setMessages:  Dispatch<SetStateAction<Message[]>>
+  setMessages: Dispatch<SetStateAction<Message[]>>;
+  updateProfileData: (profile: BusinessProfile) => void;
   logout: () => void;
 };
 
@@ -59,7 +60,7 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
       query: "",
       answer: "Hi there! How can I assist you today?",
       status: "neutral",
-    }
+    },
   ]);
 
   const { isLoading, error, data: profiles } = useBusinessProfiles();
@@ -113,6 +114,11 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
     [createNewSession, router]
   );
 
+  const updateProfileData = useCallback((profile: BusinessProfile) => {
+    setSelectedProfile(profile);
+    localStorage.setItem("selectedProfile", JSON.stringify(profile));
+  }, []);
+
   return (
     <ProfileContext.Provider
       value={{
@@ -120,7 +126,7 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
         error,
         selectedProfile,
         handleSelectProfile,
-
+        updateProfileData,
         profiles: profiles || [],
         messages: messages || [],
         setMessages,

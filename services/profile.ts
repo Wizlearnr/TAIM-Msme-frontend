@@ -27,8 +27,19 @@ export const useBusinessProfiles = () => {
 };
 
 export const createBusinessProfile = async (profileData: BusinessProfile) => {
-  // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 1200));
+  const { data } = await apiClient.post<BusinessProfile>(
+    "/business-profile",
+    profileData
+  );
 
-  return profileData;
+  return data;
+};
+
+export const updateBusinessProfile = async (profileData: BusinessProfile) => {
+  const { data } = await apiClient.put<BusinessProfile>(
+    `/business-profile/${profileData.business_id}`,
+    profileData
+  );
+
+  return data;
 };

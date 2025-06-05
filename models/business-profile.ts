@@ -1,11 +1,11 @@
 export type Promoter = {
   name: string;
   age: string;
-  aadhar: string;
+  aadhar_card: string;
   pan: string;
   gender: string;
   category: string;
-  sharePercentage: string;
+  share_percent: string;
 };
 
 export type BusinessProfile = {

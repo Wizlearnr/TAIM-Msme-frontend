@@ -20,7 +20,13 @@ const ProfileActionPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <form onSubmit={onSubmit} className="p-8 space-y-8">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit(e);
+            }}
+            className="p-8 space-y-8"
+          >
             {/* Basic Information Section */}
             <BasicInformation />
             {/* Location Details Section */}

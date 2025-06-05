@@ -1,11 +1,14 @@
 // axiosConfig.js
-import { getSelectedProfileFromLS, getSessionDataFromLS } from "@/utils/localstorage";
+import {
+  getSelectedProfileFromLS,
+  getSessionDataFromLS,
+} from "@/utils/localstorage";
 import axios from "axios";
 
 const PUBLIC_ENDPOINTS = [
   {
     path: "/business-profiles",
-    methods: ["GET"],
+    methods: ["GET", "POST"],
   },
 ];
 
@@ -44,15 +47,14 @@ apiClient.interceptors.request.use(
     const token = selectedProfile.token;
     const businessId = selectedProfile.business_id;
     const sessionId = session.session_id;
-    
 
     // Add token to Authorization header if it exists
     if (token) {
       config.headers.token = token;
     }
 
-     // Initialize params if it doesn't exist
-     if (!config.params) {
+    // Initialize params if it doesn't exist
+    if (!config.params) {
       config.params = {};
     }
 
@@ -61,7 +63,7 @@ apiClient.interceptors.request.use(
       config.params.business_id = businessId;
     }
 
-    if(sessionId) {
+    if (sessionId) {
       config.params.session_id = sessionId;
     }
 
