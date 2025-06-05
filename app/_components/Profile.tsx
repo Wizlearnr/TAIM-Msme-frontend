@@ -1,5 +1,4 @@
 "use client";
-import { IconMap } from "@/constants/icons";
 import { BusinessProfile } from "@/models/business-profile";
 import { Building2, ChevronRight } from "lucide-react";
 import { useState } from "react";
@@ -11,7 +10,7 @@ type Props = {
 };
 
 const ProfileCard = ({ profile, onSelect, index }: Props) => {
-  const IconComponent = IconMap[profile.icon] || Building2;
+  const IconComponent = Building2;
 
   const [isHovered, setIsHovered] = useState(false);
 
