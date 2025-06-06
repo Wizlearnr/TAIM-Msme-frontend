@@ -1,4 +1,6 @@
 "use client";
+import StaticDataBadge from "@/components/StaticDataBadge";
+import { telanganaSchemes } from "@/constants/schemes";
 import { WatchList } from "@/models/watchlist";
 import { useWatchLists } from "@/services/watchlist";
 import { CheckCircle2, Info, Star } from "lucide-react";
@@ -65,6 +67,7 @@ const WatchListItem: React.FC<WatchListItemProps> = ({ watchList, index }) => {
 // Watch List Component
 const Watchlist = () => {
   // const schemes = [
+
   //   {
   //     title: "PMEGP Scheme",
   //     description:
@@ -80,56 +83,61 @@ const Watchlist = () => {
   // ];
 
   const { isLoading, error, data: watchlists = [] } = useWatchLists();
+  const router = useRouter();
+  const handleMoreInfoClick = () => {
+    router.push("scheme");
+  };
 
-  if (isLoading) {
-    return (
-      <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 animate-pulse">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
-            <Star size={24} />
-          </div>
-          <h2 className="text-2xl font-bold text-gray-400">Loading...</h2>
-        </div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 animate-pulse">
+  //       <div className="flex items-center gap-3 mb-6">
+  //         <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
+  //           <Star size={24} />
+  //         </div>
+  //         <h2 className="text-2xl font-bold text-gray-400">Loading...</h2>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div className="bg-white rounded-2xl p-8 shadow-lg border border-red-100">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 bg-red-500 rounded-xl text-white">
-            <Star size={24} />
-          </div>
-          <h2 className="text-2xl font-bold text-red-800">
-            Error loading watch list
-          </h2>
-        </div>
-        <p className="text-red-600">Please try again later.</p>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="bg-white rounded-2xl p-8 shadow-lg border border-red-100">
+  //       <div className="flex items-center gap-3 mb-6">
+  //         <div className="p-3 bg-red-500 rounded-xl text-white">
+  //           <Star size={24} />
+  //         </div>
+  //         <h2 className="text-2xl font-bold text-red-800">
+  //           Error loading watch list
+  //         </h2>
+  //       </div>
+  //       <p className="text-red-600">Please try again later.</p>
+  //     </div>
+  //   );
+  // }
 
-  if (!watchlists.length) {
-    return (
-      <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
-            <Star size={24} />
-          </div>
-          <h2 className="text-2xl font-bold text-gray-800">
-            No Schemes in Watch List
-          </h2>
-        </div>
-        <p className="text-gray-600">
-          You have not added any schemes to your watch list.
-        </p>
-      </div>
-    );
-  }
+  // if (!watchlists.length) {
+  //   return (
+  //     <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+  //       <div className="flex items-center gap-3 mb-6">
+  //         <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
+  //           <Star size={24} />
+  //         </div>
+  //         <h2 className="text-2xl font-bold text-gray-800">
+  //           No Schemes in Watch List
+  //         </h2>
+  //       </div>
+  //       <p className="text-gray-600">
+  //         You have not added any schemes to your watch list.
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-lg border border-gray-100">
+    <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-lg border border-gray-100">
+      <StaticDataBadge />
       <div className="flex items-center gap-3 mb-6">
         <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl text-white">
           <Star size={24} />
@@ -138,9 +146,41 @@ const Watchlist = () => {
       </div>
 
       <div className="space-y-4">
-        {watchlists.map((watchlist, index) => (
+        {/* {watchlists.map((watchlist, index) => (
           <WatchListItem key={index} watchList={watchlist} index={index} />
-        ))}
+        ))} */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {telanganaSchemes.map((scheme, index) => (
+            <div
+              key={scheme.id}
+              className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-sm hover:shadow-lg transition-all duration-500 group flex flex-col h-full transform hover:scale-101 animate-fade-in-up"
+              style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+            >
+              <h3 className="font-bold text-gray-900 mb-3 duration-200 animate-text-glow">
+                {scheme.title}
+              </h3>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed flex-grow">
+                {scheme.description}
+              </p>
+
+              <div className="flex items-center justify-between mt-auto pt-6">
+                <div className="flex items-center space-x-2">
+                  <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full animate-pulse-gentle">
+                    {scheme.type}
+                  </span>
+                </div>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={handleMoreInfoClick}
+                    className="px-4 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 text-sm font-medium rounded-xl transition-all duration-300 transform hover:scale-110 hover:shadow-md animate-button-wobble"
+                  >
+                    More Info
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

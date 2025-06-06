@@ -9,6 +9,7 @@ import ApplicationDeadline from "./_components/ApplicationDeadline";
 import UsefulLinks from "./_components/UsefulLinks";
 import { useMutation } from "@tanstack/react-query";
 import { addToWatchLists } from "@/services/watchlist";
+import StaticDataBadge from "@/components/StaticDataBadge";
 
 const TSiPASSPortal = () => {
   const { mutate: addToWatchList } = useMutation({
@@ -25,7 +26,8 @@ const TSiPASSPortal = () => {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="relative min-h-screen bg-slate-50">
+      <StaticDataBadge />
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Title Section */}
         <div className="text-center mb-8">

@@ -21,14 +21,6 @@ const NavBar = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    const timer = setTimeout(
-      () => setShowNotifications(!!selectedProfile),
-      2000
-    );
-    return () => clearTimeout(timer);
-  }, [selectedProfile]);
-
   const handleNotificationClick = () => {
     setShowProfileDropdown(false);
     setShowNotifications(!showNotifications);
