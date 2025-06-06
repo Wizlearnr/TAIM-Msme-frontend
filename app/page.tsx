@@ -4,7 +4,7 @@ import ProfileCard from "./_components/Profile";
 import { useRouter } from "next/navigation";
 import { useProfileContext } from "./_context/ProfileContext";
 const SelectProfilePage = () => {
-  const { handleSelectProfile, profiles, isLoading, error } =
+  const { handleSelectProfile, profiles, isLoading, error, creatingSession } =
     useProfileContext();
   const router = useRouter();
 
@@ -31,7 +31,7 @@ const SelectProfilePage = () => {
         </div>
 
         {/* Loading State */}
-        {isLoading && (
+        {(isLoading || creatingSession) && (
           <div className="flex justify-center items-center py-12">
             <div
               className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full"
@@ -53,21 +53,25 @@ const SelectProfilePage = () => {
         )}
 
         {/* Profiles Grid */}
-        {!isLoading && !error && profiles && profiles.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {profiles.map((profile, index) => (
-              <ProfileCard
-                key={profile.business_id}
-                profile={profile}
-                onSelect={handleSelectProfile}
-                index={index}
-              />
-            ))}
-          </div>
-        )}
+        {!isLoading &&
+          !creatingSession &&
+          !error &&
+          profiles &&
+          profiles.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+              {profiles.map((profile, index) => (
+                <ProfileCard
+                  key={profile.business_id}
+                  profile={profile}
+                  onSelect={handleSelectProfile}
+                  index={index}
+                />
+              ))}
+            </div>
+          )}
 
         {/* Create New Profile Section */}
-        {!isLoading && (
+        {!isLoading && !creatingSession && (
           <div
             className="max-w-md mx-auto"
             style={{ animation: "fadeInUp 0.8s ease-out 0.6s both" }}

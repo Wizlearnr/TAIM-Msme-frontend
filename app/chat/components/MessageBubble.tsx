@@ -3,6 +3,7 @@
 import { Bot, User } from "lucide-react";
 import FeedbackButtons from "./FeedbackButtons";
 import { Message } from "@/models/message";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 
 interface MessageBubbleProps {
   message: Message;
@@ -25,9 +26,7 @@ const MessageBubble = ({ message, index, onFeedback }: MessageBubbleProps) => {
       }}
     >
       <div
-        className={`relative max-w-2xl ${
-          isUserMessage ? "ml-12" : "mr-12"
-        }`}
+        className={`relative max-w-2xl ${isUserMessage ? "ml-12" : "mr-12"}`}
       >
         {/* Message Bubble */}
         <div
@@ -60,7 +59,13 @@ const MessageBubble = ({ message, index, onFeedback }: MessageBubbleProps) => {
                   : "text-gray-700 font-medium"
               }`}
             >
-              {message.query || message.answer}
+              <MarkdownPreview
+                source={message.query || message.answer}
+                style={{
+                  color: "black",
+                  background: "transparent",
+                }}
+              />
             </p>
 
             {/* Feedback buttons for bot messages */}

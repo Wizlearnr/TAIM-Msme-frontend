@@ -15,7 +15,7 @@ const PUBLIC_ENDPOINTS = [
 // Create axios instance with base configuration
 export const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000, // 10 seconds timeout
+  timeout: 1000 * 60 * 10, // 10 minutes timeout
   headers: {
     "Content-Type": "application/json",
   },
@@ -39,14 +39,14 @@ apiClient.interceptors.request.use(
     // Get token and business ID from localStorage
     const selectedProfile = getSelectedProfileFromLS();
     const session = getSessionDataFromLS();
-    if (!selectedProfile || !session?.session_id) {
+    if (!selectedProfile) {
       console.error("No selected profile or session found in localStorage.");
       window.location.href = "/";
       return Promise.reject(new Error("No authentication token found"));
     }
     const token = selectedProfile.token;
     const businessId = selectedProfile.business_id;
-    const sessionId = session.session_id;
+    const sessionId = session?.session_id;
 
     // Add token to Authorization header if it exists
     if (token) {

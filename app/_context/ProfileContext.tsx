@@ -17,7 +17,6 @@ import {
   getSelectedProfileFromLS,
   getSessionDataFromLS,
 } from "@/utils/localstorage";
-import { useMutation } from "@tanstack/react-query";
 import { createSession } from "@/services/session";
 import { Session } from "@/models/session";
 import { Message } from "@/models/message";
@@ -36,6 +35,7 @@ type ContextType = {
   setMessages: Dispatch<SetStateAction<Message[]>>;
   updateProfileData: (profile: BusinessProfile) => void;
   logout: () => void;
+  creatingSession: boolean;
 };
 
 export const ProfileContext = createContext<ContextType | undefined>(undefined);
@@ -55,27 +55,11 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedProfile, setSelectedProfile] =
     useState<BusinessProfile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      query: "",
-      answer: "Hi there! How can I assist you today?",
-      status: "neutral",
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const { isLoading, error, data: profiles } = useBusinessProfiles();
 
-  const { mutate: createNewSession } = useMutation({
-    mutationFn: () => {
-      return createSession();
-    },
-    onSuccess: (data) => {
-      // Handle successful session creation if needed
-      console.log("Session created successfully:", data);
-      localStorage.setItem("session", JSON.stringify(data));
-      setSession(data);
-    },
-  });
+  const [creatingSession, setCreatingSession] = useState(false);
 
   const logout = () => {
     handleSelectProfile(null);
@@ -95,15 +79,34 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
 
     setSelectedProfile(storedProfile);
     setSession(sessionData);
-  }, [router]);
+    setMessages([
+      {
+        query: "",
+        answer: session?.answer || "",
+        status: "neutral",
+      },
+    ]);
+    router.replace("/welcome");
+  }, [router, session?.answer]);
 
   const handleSelectProfile = useCallback(
-    (profile: BusinessProfile | null) => {
+    async (profile: BusinessProfile | null) => {
       setSelectedProfile(profile);
+      setCreatingSession(true);
       localStorage.setItem("selectedProfile", JSON.stringify(profile));
-      createNewSession();
+      const session = await createSession();
+      localStorage.setItem("session", JSON.stringify(session));
+      setSession(session);
+      setCreatingSession(false);
+      setMessages([
+        {
+          query: "",
+          answer: session?.answer || "",
+          status: "neutral",
+        },
+      ]);
 
-      if (profile) {
+      if (profile && session) {
         // Navigate to the dashboard or profile page
         router.push("/welcome");
       } else {
@@ -111,7 +114,7 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
         router.push("/");
       }
     },
-    [createNewSession, router]
+    [router]
   );
 
   const updateProfileData = useCallback((profile: BusinessProfile) => {
@@ -132,6 +135,7 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
         setMessages,
         session,
         logout,
+        creatingSession: creatingSession,
       }}
     >
       {children}
