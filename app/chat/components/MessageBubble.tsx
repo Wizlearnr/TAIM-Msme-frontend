@@ -66,12 +66,10 @@ const MessageBubble = ({ message, index, onFeedback }: MessageBubbleProps) => {
                 wrapperElement={{
                   "data-color-mode": "light",
                 }}
-                // style={{
-                //   color: "black",
-                //   background: "transparent",
-                // }}
+                style={{
+                  background: "transparent",
+                }}
               />
-              {message.answer}
             </p>
 
             {/* Feedback buttons for bot messages */}
