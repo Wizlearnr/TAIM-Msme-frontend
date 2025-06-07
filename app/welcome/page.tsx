@@ -76,7 +76,9 @@ export default function MSMEWelcomePage() {
               MSME Scheme Sahayak
             </span>
           </h1>
-          <p className="text-lg text-gray-700 mb-2">(సహాయక్)</p>
+          <p className="text-lg text-gray-700 mb-2">
+            (మీ ప్రభుత్వ పథక మార్గదర్శక నేస్తం)
+          </p>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Get personalized guidance on MSME schemes from Telangana Government
           </p>
