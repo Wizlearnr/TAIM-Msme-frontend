@@ -1,5 +1,6 @@
 "use client";
 import { calculatePriority } from "@/app/utils";
+import StaticDataBadge from "@/components/StaticDataBadge";
 import { useNotifications } from "@/services/notification";
 import { Calendar, Clock } from "lucide-react";
 
@@ -40,7 +41,8 @@ const UpcomingDeadlines = () => {
   }
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-xl">
+    <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-xl">
+      <StaticDataBadge />
       <div className="flex items-center gap-3 mb-6">
         <div className="p-3 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl text-white">
           <Calendar size={24} />
@@ -82,7 +84,7 @@ const UpcomingDeadlines = () => {
                     </span>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="text-right min-w-[100px]">
                   <div
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
                       isHighPriority

@@ -7,24 +7,22 @@ import {
   MapPin,
   FileText,
   Factory,
-  Briefcase,
+  Loader2,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { centralSchemes, telanganaSchemes } from "@/constants/schemes";
+import { useRecommendedSchemes } from "@/services/schemes";
+import { useProfileContext } from "../_context/ProfileContext";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 
 const MSMESchemesPage = () => {
-  const businessProfile = {
-    type: "Manufacturing",
-    turnover: "50 Lakhs",
-    district: "Hyderabad",
-    sector: "Textiles",
-  };
-
   const router = useRouter();
 
-  const handleMoreInfoClick = () => {
-    router.push("scheme");
-  };
+  const { data: schemes, isLoading, error } = useRecommendedSchemes();
+  const { selectedProfile } = useProfileContext();
+
+  // const handleMoreInfoClick = () => {
+  //   router.push("/scheme");
+  // };
 
   const handleFeedbackClick = () => {
     router.push("/feedback");
@@ -32,178 +30,6 @@ const MSMESchemesPage = () => {
 
   return (
     <div className="relative min-h-screen bg-gray-50 overflow-hidden">
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes bounceSubtle {
-          0%,
-          20%,
-          50%,
-          80%,
-          100% {
-            transform: translateY(0);
-          }
-          40% {
-            transform: translateY(-5px);
-          }
-          60% {
-            transform: translateY(-3px);
-          }
-        }
-
-        @keyframes spinSlow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        @keyframes pulseGentle {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.7;
-          }
-        }
-
-        @keyframes pulseSlow {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.8;
-          }
-        }
-
-        @keyframes textGlow {
-          0%,
-          100% {
-            text-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-          }
-          50% {
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-          }
-        }
-
-        @keyframes buttonWobble {
-          0%,
-          100% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(1deg);
-          }
-          75% {
-            transform: rotate(-1deg);
-          }
-        }
-
-        @keyframes pulseButton {
-          0% {
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
-          }
-          70% {
-            box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
-          }
-          100% {
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-          }
-        }
-
-        .animate-fade-in-up {
-          animation: fadeInUp 0.8s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-slide-in-right {
-          animation: slideInRight 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-slide-in-left {
-          animation: slideInLeft 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-bounce-subtle {
-          animation: bounceSubtle 2s infinite;
-        }
-
-        .animate-spin-slow {
-          animation: spinSlow 8s linear infinite;
-        }
-
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-pulse-gentle {
-          animation: pulseGentle 2s ease-in-out infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulseSlow 3s ease-in-out infinite;
-        }
-
-        .animate-text-glow {
-          animation: textGlow 2s ease-in-out infinite;
-        }
-
-        .animate-button-wobble:hover {
-          animation: buttonWobble 0.5s ease-in-out;
-        }
-
-        .animate-pulse-button {
-          animation: pulseButton 2s infinite;
-        }
-      `}</style>
-
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Business Profile Section */}
@@ -227,11 +53,11 @@ const MSMESchemesPage = () => {
                   <Building2 className="w-4 h-4 text-blue-600" />
                 </div>
                 <span className="text-sm font-medium text-gray-600">
-                  Business Type
+                  Business Name
                 </span>
               </div>
               <p className="text-lg font-bold text-gray-900">
-                {businessProfile.type}
+                {selectedProfile?.business_name}
               </p>
             </div>
 
@@ -248,7 +74,7 @@ const MSMESchemesPage = () => {
                 </span>
               </div>
               <p className="text-lg font-bold text-gray-900">
-                {businessProfile.turnover}
+                {selectedProfile?.annual_turnover}
               </p>
             </div>
 
@@ -260,12 +86,10 @@ const MSMESchemesPage = () => {
                 <div className="w-8 h-8 bg-purple-100 rounded-xl flex items-center justify-center animate-pulse-slow">
                   <MapPin className="w-4 h-4 text-purple-600" />
                 </div>
-                <span className="text-sm font-medium text-gray-600">
-                  District
-                </span>
+                <span className="text-sm font-medium text-gray-600">City</span>
               </div>
               <p className="text-lg font-bold text-gray-900">
-                {businessProfile.district}
+                {selectedProfile?.city}
               </p>
             </div>
 
@@ -282,20 +106,20 @@ const MSMESchemesPage = () => {
                 </span>
               </div>
               <p className="text-lg font-bold text-gray-900">
-                {businessProfile.sector}
+                {selectedProfile?.sector}
               </p>
             </div>
           </div>
         </div>
 
         {/* Recommended Schemes */}
-        <div className="space-y-8">
+        <div className="space-y-8 bg-white rounded-3xl shadow-sm border border-gray-200 p-8 mt-8 animate-fade-in-up min-h-[400px]">
           <h1 className="text-3xl font-bold text-gray-900 mb-2 animate-slide-in-left">
             Recommended Schemes
           </h1>
 
           {/* Telangana Government Schemes */}
-          <div
+          {/* <div
             className="bg-gradient-to-br from-emerald-50 via-blue-50 to-cyan-50 rounded-3xl p-8 mb-8 border border-emerald-100 shadow-sm animate-fade-in-up"
             style={{ animationDelay: "0.2s" }}
           >
@@ -340,10 +164,10 @@ const MSMESchemesPage = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Central Government Schemes */}
-          <div
+          {/* <div
             className="bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 rounded-3xl p-8 mb-8 border border-purple-100 shadow-sm animate-fade-in-up"
             style={{ animationDelay: "0.6s" }}
           >
@@ -385,7 +209,34 @@ const MSMESchemesPage = () => {
                 </div>
               ))}
             </div>
+            
+          </div> */}
+
+          <div className="flex flex-col items-center justify-center m-4 h-12 min-h-[400px]">
+            {isLoading && (
+              <div className="flex items-center justify-center text-gray-500 animate-fade-in-up">
+                <h2 className="text-lg font-semibold">Loading...</h2>
+                <Loader2 className="inline-block animate-spin ml-2 w-5 h-5 text-blue-500" />
+              </div>
+            )}
+            {error && (
+              <div className="text-center text-red-500 animate-fade-in-up">
+                Error loading schemes. Please try again later.
+              </div>
+            )}
           </div>
+
+          {!isLoading && !error && (
+            <MarkdownPreview
+              source={schemes!.replaceAll("\n", "<br />")}
+              wrapperElement={{
+                "data-color-mode": "light",
+              }}
+              style={{
+                background: "transparent",
+              }}
+            />
+          )}
         </div>
 
         {/* Feedback Section */}

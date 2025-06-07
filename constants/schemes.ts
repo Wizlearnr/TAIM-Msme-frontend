@@ -2,45 +2,34 @@ export const telanganaSchemes = [
   {
     id: 1,
     title:
-      "TS-iPASS (Telangana State Industrial Project Approval and Self Certification System)",
+      "TS iPASS (Investment Promotion and Facilitation of Small Enterprises)",
     description:
-      "Simplified process for obtaining licenses and clearances for industrial projects, including MSMEs.",
+      "Offers capital subsidies (up to 25% of project cost, max ₹50 lakh) for machinery, technology upgrades, and working capital. Ideal for textile startups to modernize operations",
     type: "State Scheme",
     benefits: [
       "Single window clearance",
       "Reduced approval time",
       "Online tracking",
     ],
-    eligibility: "All industrial projects in Telangana",
+    eligibility:
+      "Registered MSME in Telangana, Investment in plant/machinery or technology.",
     funding: "Process facilitation",
   },
   {
     id: 2,
-    title: "Subsidy Scheme for MSMEs",
+    title:
+      "Mukhyamantri Grants (Chief Minister’s Employment Generation Scheme)",
     description:
-      "Provides financial assistance through various subsidies for establishing and expanding MSMEs.",
+      "Provides grants (₹1–5 lakh) for job creation, prioritizing businesses with >30% women employees (9 out of 20 employees qualify).",
     type: "State Scheme",
     benefits: [
       "Capital subsidy up to 25%",
       "Interest subsidy",
       "Power subsidy",
     ],
-    eligibility: "MSMEs in manufacturing sector",
+    eligibility:
+      "At least 10 new employees hired, Priority for manufacturing sectors",
     funding: "Up to ₹25 lakhs",
-  },
-  {
-    id: 3,
-    title: "Marketing Assistance Scheme",
-    description:
-      "Supports MSMEs in marketing their products/services through exhibitions, trade fairs, etc.",
-    type: "State Scheme",
-    benefits: [
-      "Exhibition participation support",
-      "Marketing material assistance",
-      "Digital marketing support",
-    ],
-    eligibility: "Registered MSMEs",
-    funding: "Up to ₹2 lakhs per year",
   },
 ];
 
