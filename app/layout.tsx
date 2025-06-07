@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "MSME Chatbot",
   description: "A chatbot for MSME support",
+  icons: {
+    icon: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({
