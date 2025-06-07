@@ -82,12 +82,12 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
     setMessages([
       {
         query: "",
-        answer: session?.answer || "",
+        answer: sessionData?.answer || "",
         status: "neutral",
       },
     ]);
     router.replace("/welcome");
-  }, [router, session?.answer]);
+  }, [router]);
 
   const handleSelectProfile = useCallback(
     async (profile: BusinessProfile | null) => {
@@ -97,7 +97,6 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
       const session = await createSession();
       localStorage.setItem("session", JSON.stringify(session));
       setSession(session);
-      setCreatingSession(false);
       setMessages([
         {
           query: "",
@@ -113,6 +112,7 @@ const ProfileContextProvider: React.FC<{ children: ReactNode }> = ({
         // If no profile is selected, redirect to the select profile page
         router.push("/");
       }
+      setCreatingSession(false);
     },
     [router]
   );

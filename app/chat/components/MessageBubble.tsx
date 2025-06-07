@@ -60,12 +60,18 @@ const MessageBubble = ({ message, index, onFeedback }: MessageBubbleProps) => {
               }`}
             >
               <MarkdownPreview
-                source={message.query || message.answer}
-                style={{
-                  color: "black",
-                  background: "transparent",
+                source={
+                  message.query || message.answer.replaceAll("\n", "<br />")
+                }
+                wrapperElement={{
+                  "data-color-mode": "light",
                 }}
+                // style={{
+                //   color: "black",
+                //   background: "transparent",
+                // }}
               />
+              {message.answer}
             </p>
 
             {/* Feedback buttons for bot messages */}
