@@ -212,7 +212,7 @@ const MSMESchemesPage = () => {
             
           </div> */}
 
-          <div className="flex flex-col items-center justify-center m-4 h-12 min-h-[400px]">
+          <div className="flex flex-col items-center justify-center m-4 min-h-[400px]">
             {isLoading && (
               <div className="flex items-center justify-center text-gray-500 animate-fade-in-up">
                 <h2 className="text-lg font-semibold">Loading...</h2>
@@ -224,19 +224,18 @@ const MSMESchemesPage = () => {
                 Error loading schemes. Please try again later.
               </div>
             )}
+            {!isLoading && !error && (
+              <MarkdownPreview
+                source={schemes!.replaceAll("\n", "<br />")}
+                wrapperElement={{
+                  "data-color-mode": "light",
+                }}
+                style={{
+                  background: "transparent",
+                }}
+              />
+            )}
           </div>
-
-          {!isLoading && !error && (
-            <MarkdownPreview
-              source={schemes!.replaceAll("\n", "<br />")}
-              wrapperElement={{
-                "data-color-mode": "light",
-              }}
-              style={{
-                background: "transparent",
-              }}
-            />
-          )}
         </div>
 
         {/* Feedback Section */}
